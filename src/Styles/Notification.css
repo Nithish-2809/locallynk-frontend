@@ -1,0 +1,48 @@
+/* Notification Popup */
+.noti-popup {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+
+  background: white;
+  padding: 14px 20px;
+
+  border-radius: 12px;
+  border: 1px solid #d5dce6;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+
+  z-index: 9999;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
+}
+
+.noti-popup.success {
+  border-left: 6px solid limegreen;
+  color: #166534;
+}
+
+.noti-popup.error {
+  border-left: 6px solid red;
+  color: #b91c1c;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}

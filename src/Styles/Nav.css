@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
 
-  background: #cddbed;
+  background: #f3f6fa;
   border: 1px solid #d5dce6;
   border-radius: 14px;
 
@@ -168,7 +168,7 @@
     justify-content: space-between;
     overflow: hidden; /* FIX */
   }
-
+  
   .search-box {
     width: 100%;
     min-width: unset;
