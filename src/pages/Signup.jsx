@@ -193,7 +193,7 @@ const Signup = () => {
           <p>Or</p>
           <div className="google-btn">
             <GoogleLogin
-              theme="filled_black"
+              theme="filled_blue"
               size="large"
               onSuccess={handleGoogleSignup}
               onError={() => showPopup("error", "Google Signup Failed")}

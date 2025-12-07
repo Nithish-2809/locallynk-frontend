@@ -1,0 +1,155 @@
+/* ==== GLOBAL RESET ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  color: #333;
+}
+
+
+/* ==== GLOBAL PAGE BACKGROUND ==== */
+#root {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #fdfbfb, #ebedee);
+}
+
+
+/* ==== GENERIC PAGE WRAPPER ==== */
+.page-wrapper {
+  min-height: calc(100vh - 70px); /* below navbar */
+  padding: 40px 20px;
+}
+
+
+/* ==== COMMON CARD STYLE ==== */
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  padding: 20px;
+}
+
+
+/* ==== FORM BASE STYLE ==== */
+input,
+textarea,
+select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  outline: none;
+  font-size: 14px;
+  background: #fbfbfb;
+  transition: 0.25s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: limegreen;
+  box-shadow: 0 0 0 2px rgba(50,205,50,0.15);
+}
+
+
+/* ==== GLOBAL BUTTONS ==== */
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+
+/* ==== SUCCESS BUTTON ==== */
+.btn-primary {
+  background: limegreen;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #24a024;
+}
+
+
+/* ==== SECONDARY BUTTON ==== */
+.btn-secondary {
+  background: #e2e6f2;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #cfd6ec;
+}
+
+
+/* ==== LINKS ==== */
+a {
+  text-decoration: none;
+  color: limegreen;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* ==== NAVBAR LOOK (OPTIONAL IF YOU HAVE ONE) ==== */
+.navbar {
+  height: 70px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+
+/* ==== FORM PAGES CENTERING ==== */
+.center-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+
+/* ==== GOOGLE BUTTON CENTER ==== */
+.google-wrapper {
+  margin-top: 14px;
+}
+
+
+/* ==== SOFT CONTAINERS ==== */
+.soft-bg {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+}
+
+
+/* ==== TEXT COLOR HARMONY ==== */
+h1, h2, h3 {
+  color: #2a2a2a;
+}
+
+small {
+  color: #666;
+}
+
+
+/* ==== MOBILE ==== */
+@media (max-width: 600px) {
+  .page-wrapper {
+    padding: 20px 12px;
+  }
+}

@@ -217,3 +217,13 @@
     padding: 8px 10px;
   }
 }
+
+
+.logout-btn {
+  cursor: pointer;
+  color: crimson;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}
