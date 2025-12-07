@@ -1,0 +1,85 @@
+.profile-container {
+  width: 450px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+
+.profile-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2a2a2a;
+}
+
+.profile-pic-wrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-details label {
+  font-size: 13px;
+  color: #666;
+}
+
+.profile-details input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.btn-edit, .btn-save {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+}
+
+.btn-edit {
+  background: #007bff;
+}
+
+.btn-edit:hover {
+  background: #0066d6;
+}
+
+.btn-save {
+  background: limegreen;
+}
+
+.btn-save:hover {
+  background: #28a428;
+}
+
+.btn-remove {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-remove-pic:hover {
+  background: #e60000;
+}
