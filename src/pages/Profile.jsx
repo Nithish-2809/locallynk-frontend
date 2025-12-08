@@ -19,9 +19,7 @@ function Profile() {
     setTimeout(() => setPopup({ show: false, type: "", message: "" }), 2500);
   };
 
-  // -------------------------------------------------------------------
   // FORM STATE
-  // -------------------------------------------------------------------
   const [form, setForm] = useState({
     userName: "",
     email: "",
@@ -34,10 +32,9 @@ function Profile() {
 
   const [editMode, setEditMode] = useState(false);
   const [profilePicFile, setProfilePicFile] = useState(null);
+  const [saving, setSaving] = useState(false); // ✅ NEW STATE
 
-  // -------------------------------------------------------------------
   // LOAD USER DATA
-  // -------------------------------------------------------------------
   useEffect(() => {
     if (storedUser) {
       setForm({
@@ -52,16 +49,12 @@ function Profile() {
     }
   }, []);
 
-  // -------------------------------------------------------------------
-  // HANDLE INPUT CHANGE
-  // -------------------------------------------------------------------
+  // INPUT CHANGE HANDLER
   const handleChange = (e) => {
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
 
-  // -------------------------------------------------------------------
-  // HANDLE PROFILE PIC CHANGE
-  // -------------------------------------------------------------------
+  // PROFILE PIC CHANGE
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setProfilePicFile(file);
@@ -74,20 +67,20 @@ function Profile() {
     }
   };
 
-  // -------------------------------------------------------------------
-  // REMOVE PROFILE PIC
-  // -------------------------------------------------------------------
+  // REMOVE PICTURE
   const removeProfilePic = () => {
     setProfilePicFile(null);
     setForm((p) => ({ ...p, profilePic: DEFAULT_AVATAR }));
     showPopup("success", "Profile picture removed");
   };
 
-  // -------------------------------------------------------------------
-  // SAVE PROFILE
-  // -------------------------------------------------------------------
+  // SAVE PROFILE (UPDATED WITH DISABLE STATE)
   const saveProfile = async () => {
+    if (saving) return; // prevent spam clicks
+
     try {
+      setSaving(true); // disable button
+
       const data = new FormData();
 
       data.append("userName", form.userName);
@@ -139,23 +132,19 @@ function Profile() {
     } catch (err) {
       console.log(err);
       showPopup("error", "Failed to update profile");
+    } finally {
+      setSaving(false); // enable button again
     }
   };
 
-  // -------------------------------------------------------------------
-  // RENDER UI
-  // -------------------------------------------------------------------
   return (
     <div className="profile-page">
-
       <div className="profile-inner">
 
-        {/* LEFT — PROFILE CARD */}
+        {/* LEFT SIDE CARD */}
         <div className="profile-card">
-
           <h2 className="profile-title">My Profile</h2>
 
-          {/* Profile Image */}
           <div className="profile-avatar">
             <img src={form.profilePic} alt="Profile" />
 
@@ -169,7 +158,6 @@ function Profile() {
             )}
           </div>
 
-          {/* FORM FIELDS */}
           <div className="profile-fields">
             <label>Username</label>
             <input
@@ -204,22 +192,25 @@ function Profile() {
             />
           </div>
 
-          {/* EDIT / SAVE BUTTON */}
           {!editMode ? (
             <button className="edit-btn" onClick={() => setEditMode(true)}>
               Edit Profile
             </button>
           ) : (
-            <button className="save-btn" onClick={saveProfile}>
-              Save Changes
+            <button
+              className="save-btn"
+              onClick={saveProfile}
+              disabled={saving}
+              style={{ opacity: saving ? 0.6 : 1 }}
+            >
+              {saving ? "Saving..." : "Save Changes"}
             </button>
           )}
         </div>
 
-        {/* RIGHT — QUICK ACTIONS */}
+        {/* RIGHT SIDE QUICK ACTIONS */}
         <div className="profile-side">
           <div className="side-card">
-
             <button
               className="side-btn primary"
               onClick={() => navigate("/my-products")}
@@ -227,15 +218,12 @@ function Profile() {
               My Products
             </button>
 
-            <button className="side-btn secondary">
-              My Orders
-            </button>
+            <button className="side-btn secondary">My Orders</button>
           </div>
         </div>
 
       </div>
 
-      {/* NOTIFICATION POPUP */}
       {popup.show && <Notification type={popup.type} message={popup.message} />}
     </div>
   );

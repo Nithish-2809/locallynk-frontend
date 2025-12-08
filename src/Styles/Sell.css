@@ -1,0 +1,153 @@
+/* ============================
+   MAIN WRAPPER
+============================ */
+.sell-wrapper {
+  width: 500px;
+  max-width: 95%;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+}
+
+/* ============================
+   TITLE
+============================ */
+.sell-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* ============================
+   FORM INPUTS
+============================ */
+.sell-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sell-form input,
+.sell-form textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f8f8f8;
+  font-size: 15px;
+  width: 100%;
+}
+
+.sell-form textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* ============================
+   SUBMIT BUTTON
+============================ */
+.sell-btn {
+  margin-top: 15px;
+  background: limegreen;
+  padding: 14px;
+  font-size: 17px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.sell-btn:hover {
+  background: #1da61d;
+}
+
+/* ============================
+   IMAGE UPLOAD BOX
+============================ */
+.image-upload-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preview-img {
+  margin-top: 8px;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.2s ease;
+}
+
+.preview-img:hover {
+  transform: scale(1.03);
+}
+
+/* ============================
+   LOCATION TITLE
+============================ */
+.loc-title {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+============================ */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .sell-wrapper {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .sell-title {
+    font-size: 22px;
+  }
+
+  .preview-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .sell-btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .sell-wrapper {
+    padding: 18px;
+    width: 95%;
+  }
+
+  .sell-title {
+    font-size: 20px;
+  }
+
+  .preview-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .sell-form input,
+  .sell-form textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .sell-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}

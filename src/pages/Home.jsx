@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import "../Styles/Home.css"; 
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get search query from URL → /?search=phone
+  const { search } = useLocation();
+  const searchQuery = new URLSearchParams(search).get("search");
+
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(
-        "https://locallynk-production.up.railway.app/product"
-      );
+      let url = "https://locallynk-production.up.railway.app/product";
 
-      setProducts(res.data.products);
+      // If search query exists → use search API
+      if (searchQuery) {
+        url = `https://locallynk-production.up.railway.app/product/search?name=${searchQuery}`;
+      }
+
+      const res = await axios.get(url);
+      setProducts(res.data.products || []);
       setLoading(false);
+
     } catch (error) {
       console.error("Failed to load products:", error);
       setLoading(false);
@@ -22,17 +32,15 @@ function Home() {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [searchQuery]); // re-fetch when search term changes
 
   return (
     <div className="home-wrapper">
 
-      <h2 className="home-title">Latest Products</h2>
-
       {loading ? (
         <p className="loading-text">Loading products...</p>
       ) : products.length === 0 ? (
-        <p className="no-products">No products available</p>
+        <p className="no-products">No products found</p>
       ) : (
         <div className="product-grid">
           {products.map((product) => (

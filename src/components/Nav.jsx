@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { FiSearch, FiMapPin } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import "../Styles/Nav.css";
 
 export default function Nav() {
-
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
 
-  // ✅ Check login state
   const isLoggedIn = Boolean(localStorage.getItem("token"));
 
-  // ✅ Logout handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
-    window.location.reload();   // re-render navbar
+    window.location.reload();
+  };
+
+  // 🔍 SEARCH FUNCTION
+  const handleSearch = () => {
+    if (!searchText.trim()) return;
+
+    navigate(`/?search=${encodeURIComponent(searchText)}`);
   };
 
   return (
@@ -31,8 +36,14 @@ export default function Nav() {
       {/* Search */}
       <div className="nav-center">
         <div className="search-box">
-          <input className="search-input" placeholder="Search products" />
-          <button className="icon-btn">
+          <input
+            className="search-input"
+            placeholder="Search products"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          />
+          <button className="icon-btn" onClick={handleSearch}>
             <FiSearch size={18} />
           </button>
         </div>
@@ -41,10 +52,6 @@ export default function Nav() {
       {/* Right Navigation */}
       <div className="nav-right">
 
-        <NavLink to="/sell" className="nav-link">Sell</NavLink>
-        <NavLink to="/chat" className="nav-link">Chats</NavLink>
-
-        {/* ✅ NOT LOGGED IN */}
         {!isLoggedIn && (
           <>
             <NavLink to="/login" className="nav-link">Login</NavLink>
@@ -52,9 +59,10 @@ export default function Nav() {
           </>
         )}
 
-        {/* ✅ LOGGED IN */}
         {isLoggedIn && (
           <>
+            <NavLink to="/sell" className="nav-link">Sell</NavLink>
+            <NavLink to="/chat" className="nav-link">Chats</NavLink>
             <NavLink to="/profile" className="nav-link">Profile</NavLink>
             <span className="nav-link logout-btn" onClick={handleLogout}>
               Logout
