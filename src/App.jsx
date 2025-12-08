@@ -32,6 +32,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/product/:id" element={<ProductInfo />} />
 
         <Route path="/payment-success" element={<Payment />} />
       </Routes>

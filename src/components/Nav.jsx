@@ -36,9 +36,6 @@ export default function Nav() {
             <FiSearch size={18} />
           </button>
         </div>
-        <button className="map-btn">
-          <FiMapPin size={18} />
-        </button>
       </div>
 
       {/* Right Navigation */}

@@ -12,10 +12,7 @@
   margin: 22px;
 
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-
   transition: background 0.25s ease, border-color 0.25s ease;
-
-  overflow: hidden; /* Prevent layout overflow */
 }
 
 /* ========== LOGO ========== */
@@ -24,33 +21,34 @@
   font-weight: 800;
   text-decoration: none;
   color: #1e293b;
-  letter-spacing: 0.5px;
 }
 
 .logo-accent {
   color: limegreen;
 }
 
-/* ========== CENTER (SEARCH + MAP) ========== */
+/* ========== SEARCH ========== */
 .nav-center {
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  justify-content: center;
 }
 
 .search-box {
   display: flex;
   align-items: center;
 
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #d5dce6;
-  border-radius: 10px;
+  border-radius: 12px;
 
   padding: 8px 14px;
-  min-width: 360px;
-  gap: 12px;
 
-  transition: all 0.25s ease;
+  width: 520px; /* 🔥 wider search bar */
+  max-width: 100%;
+
+  gap: 12px;
+  transition: border-color 0.25s ease;
 }
 
 .search-box:hover {
@@ -62,37 +60,24 @@
   border: none;
   outline: none;
   background: transparent;
-
   font-size: 15px;
   color: #1e293b;
 }
 
-/* Buttons (icons) */
-.icon-btn,
-.map-btn {
+.icon-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 4px;
-
   color: #6b7280;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: 0.2s;
 }
 
-.icon-btn:hover,
-.map-btn:hover {
+.icon-btn:hover {
   color: limegreen;
-  transform: translateY(-1px);
 }
 
-.map-btn {
-  border: 1px solid #d5dce6;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 8px 10px;
-}
-
-/* ========== RIGHT NAV ITEMS ========== */
+/* ========== RIGHT LINKS ========== */
 .nav-right {
   display: flex;
   align-items: center;
@@ -103,13 +88,10 @@
   text-decoration: none;
   font-size: 17px;
   font-weight: 500;
-
   padding: 10px 14px;
   border-radius: 10px;
-
   color: #334155;
-
-  transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease;
+  transition: 0.25s ease;
 }
 
 .nav-link:hover {
@@ -120,66 +102,38 @@
 .nav-link.active {
   background: limegreen;
   color: white !important;
-
   font-weight: 600;
-  border-radius: 10px;
-
-  box-shadow: 0 3px 12px rgba(58, 109, 255, 0.35);
-  transform: translateY(-1px);
 }
 
-/* ==========================================
-   ========== RESPONSIVE BREAKPOINTS =========
-   ========================================== */
+/* Logout */
+.logout-btn {
+  cursor: pointer;
+  color: crimson !important;
+}
 
-/* ========== Tablets (<= 992px) ========== */
+/* ===================================
+   RESPONSIVE BREAKPOINTS
+=================================== */
+
 @media (max-width: 992px) {
-  .nav {
-    padding: 14px 20px;
-  }
-
   .search-box {
-    min-width: 260px;
-  }
-
-  .nav-right {
-    gap: 14px;
-  }
-
-  .nav-link {
-    font-size: 15px;
-    padding: 8px 12px;
+    width: 400px;
   }
 }
 
-/* ========== Mobile (<= 768px) ========== */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
+    gap: 16px;
     padding: 18px;
-    overflow: hidden; /* FIX */
   }
 
   .nav-center {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden; /* FIX */
-  }
-  
-  .search-box {
-    width: 100%;
-    min-width: unset;
-    flex-grow: 1;
-    flex-shrink: 1;
   }
 
-  /* Icons should not shrink */
-  .icon-btn,
-  .map-btn {
-    flex-shrink: 0;
+  .search-box {
+    width: 100%;
   }
 
   .nav-right {
@@ -188,23 +142,9 @@
   }
 }
 
-/* ========== Small Mobile (<= 480px) ========== */
 @media (max-width: 480px) {
   .nav-logo {
     font-size: 22px;
-    text-align: center;
-  }
-
-  .nav-center {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    width: 100%;
-  }
-
-  .search-box {
-    width: 100%;
-    min-width: unset;
   }
 
   .nav-right {
@@ -213,17 +153,7 @@
   }
 
   .nav-link {
-    font-size: 14px;
+    font-size: 15px;
     padding: 8px 10px;
   }
-}
-
-
-.logout-btn {
-  cursor: pointer;
-  color: crimson;
-}
-
-.logout-btn:hover {
-  text-decoration: underline;
 }

@@ -1,0 +1,150 @@
+/* ========== WRAPPER ========== */
+.home-wrapper {
+  padding: 20px;
+}
+
+.home-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading-text,
+.no-products {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  color: #64748b;
+}
+
+/* ========== PRODUCT GRID ========== */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 🔥 MOBILE FIRST */
+  gap: 22px;
+}
+
+/* Tablet */
+@media (min-width: 576px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium Devices */
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Large Devices */
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========== PRODUCT CARD ========== */
+.product-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  padding-bottom: 12px;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Product image */
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* ========== INFO ========== */
+.product-info {
+  padding: 14px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: limegreen;
+  margin-bottom: 8px;
+}
+
+.product-category {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.product-age {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #475569;
+}
+
+.product-seller span {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.product-location {
+  font-size: 14px;
+  color: #334155;
+  margin-top: 4px;
+}
+
+/* ========== VIEW BUTTON ========== */
+.view-btn {
+  width: calc(100% - 24px);
+  margin: 12px;
+  padding: 10px;
+
+  background: limegreen;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: 0.25s ease;
+}
+
+.view-btn:hover {
+  background: #17a110;
+}
+
+/* EXTRA SMALL DEVICES FIX */
+@media (max-width: 380px) {
+  .home-title {
+    font-size: 22px;
+  }
+
+  .product-name {
+    font-size: 16px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+}

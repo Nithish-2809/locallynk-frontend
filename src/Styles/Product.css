@@ -1,0 +1,135 @@
+.pd-wrapper {
+  display: flex;
+  gap: 30px;
+  padding: 24px;
+}
+
+/* LEFT IMAGE */
+.pd-left {
+  width: 45%;
+}
+
+.pd-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* RIGHT INFO */
+.pd-right {
+  width: 55%;
+}
+
+.pd-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.pd-price {
+  font-size: 30px;
+  font-weight: 800;
+  color: limegreen;
+  margin-bottom: 10px;
+}
+
+.pd-category,
+.pd-age,
+.pd-description,
+.pd-location {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #475569;
+}
+
+.pd-map-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: limegreen;
+  font-weight: 600;
+}
+
+/* SELLER CARD */
+.seller-card {
+  margin-top: 25px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+.seller-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 10px 0;
+  object-fit: cover;
+}
+
+.seller-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.seller-email {
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.seller-location {
+  color: #334155;
+}
+
+.seller-joined {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.seller-products-btn {
+  margin-top: 12px;
+  padding: 10px;
+  width: 100%;
+  background: limegreen;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.seller-products-btn:hover {
+  background: #17a110;
+}
+
+/* LOADING + ERROR */
+.pd-loading,
+.pd-error {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #475569;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .pd-wrapper {
+    flex-direction: column;
+  }
+
+  .pd-left,
+  .pd-right {
+    width: 100%;
+  }
+
+  .pd-image {
+    height: 350px;
+  }
+}

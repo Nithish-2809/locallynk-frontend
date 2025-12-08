@@ -105,3 +105,8 @@
     grid-column: span 1;
   }
 }
+
+*greet {
+  font-size: large;
+  color: #333;
+}

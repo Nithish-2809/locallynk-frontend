@@ -56,17 +56,16 @@ const Login = () => {
     }
   };
 
-  // ✅ GOOGLE LOGIN / SIGNUP
+  // ✅ GOOGLE LOGIN
   const handleGoogleLogin = async (credentialResponse) => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
 
-      // Try logging in with google email
       const res = await axios.post(
         "https://locallynk-production.up.railway.app/user/login",
         {
           email: decoded.email,
-          password: decoded.sub // Google unique ID used as password
+          password: decoded.sub
         }
       );
 
@@ -86,7 +85,14 @@ const Login = () => {
     <div className="signup-container">
 
       <form onSubmit={handleSubmit} className="signup-box">
-        <h2 className="signup-title">Login</h2>
+
+        {/* NEW LINE */}
+        <p  style={{ gridColumn: "span 2", textAlign: "center", marginBottom: "4px", fontSize: "30px", color: "#444",fontFamily : "ui-monospace" }}>
+          Welcome back 
+        </p>
+
+        {/* UPDATED TITLE */}
+        <h2 className="signup-title">Login to continue shopping</h2>
 
         <input
           type="email"
@@ -107,6 +113,22 @@ const Login = () => {
         <button type="submit" className="signup-btn" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+
+        {/* NEW FOOTER MESSAGE */}
+        <p
+          style={{
+            gridColumn: "span 2",
+            textAlign: "center",
+            marginTop: "8px",
+            fontSize: "14px"
+          }}
+        >
+          Don't have an account?{" "}
+          <a href="/signup" style={{ color: "limegreen", fontWeight: "bold", textDecoration: "none" }}>
+            Create account
+          </a>
+        </p>
+
       </form>
 
       {/* GOOGLE LOGIN */}
