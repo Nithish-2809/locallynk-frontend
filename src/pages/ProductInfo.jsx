@@ -35,6 +35,7 @@ function ProductInfo() {
 
   const seller = product.Seller;
 
+
   return (
     <div className="pd-wrapper">
 
@@ -105,7 +106,7 @@ function ProductInfo() {
           {/* View seller products */}
           <button
             className="seller-products-btn"
-            onClick={() => navigate("/my-products")}
+           onClick={() => navigate(`/seller-products/${seller._id}`)}
           >
             View Seller’s Products
           </button>

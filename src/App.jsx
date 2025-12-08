@@ -12,6 +12,8 @@ import Chat from "./pages/Chat";
 import Orders from "./pages/Orders";
 import Payment from "./pages/Payment";
 import ProductInfo from "./pages/ProductInfo";
+import SellerProducts from "./pages/SellerProducts";
+
 
 function App() {
   return (
@@ -26,7 +28,7 @@ function App() {
 
         <Route path="/sell" element={<Sell />} />
         <Route path="/my-products" element={<MyProducts />} />
-
+        <Route path="/seller-products/:userId" element={<SellerProducts />} />
         <Route path="/product/:id" element={<ProductInfo />} />
 
         <Route path="/profile" element={<Profile />} />
