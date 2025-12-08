@@ -1,0 +1,86 @@
+.mp-wrapper {
+  width: 100%;
+  min-height: 90vh;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f7fa;
+}
+
+.mp-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.mp-loading,
+.mp-empty {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #555;
+}
+
+/* Grid layout */
+.mp-grid {
+  width: 90%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* Product card */
+.mp-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  transition: 0.25s ease;
+}
+
+.mp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.mp-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.mp-info {
+  padding: 15px;
+}
+
+.mp-info h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #222;
+}
+
+.mp-price {
+  font-size: 17px;
+  color: #1e90ff;
+  font-weight: 600;
+}
+
+.mp-status {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #444;
+}
+
+.green {
+  color: #2ecc71;
+  font-weight: 700;
+}
+
+.red {
+  color: #e63946;
+  font-weight: 700;
+}

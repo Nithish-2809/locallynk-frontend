@@ -1,78 +1,70 @@
-.profile-container {
-  width: 450px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-  margin-top: -20px;
+/* ================================
+   MAIN PAGE LAYOUT
+   ================================ */
+
+.profile-page {
+  width: 100%;
+  min-height: 90vh;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  background: #f5f7fa;
+}
+
+.profile-inner {
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+
+/* ================================
+   LEFT — PROFILE CARD
+   ================================ */
+
+.profile-card {
+  width: 55%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
 }
 
 .profile-title {
   text-align: center;
-  margin-bottom: 20px;
-  color: #2a2a2a;
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 25px;
 }
 
-.profile-pic-wrapper {
+/* Avatar */
+.profile-avatar {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.profile-pic {
-  width: 120px;
-  height: 120px;
+.profile-avatar img {
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
-.profile-details {
+.pic-controls {
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  align-items: center;
 }
 
-.profile-details label {
-  font-size: 13px;
-  color: #666;
-}
-
-.profile-details input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fafafa;
-}
-
-.btn-edit, .btn-save {
-  margin-top: 18px;
-  width: 100%;
-  padding: 12px;
-  border-radius: 6px;
-  color: white;
-  font-size: 15px;
-}
-
-.btn-edit {
-  background: #007bff;
-}
-
-.btn-edit:hover {
-  background: #0066d6;
-}
-
-.btn-save {
-  background: limegreen;
-}
-
-.btn-save:hover {
-  background: #28a428;
-}
-
-.btn-remove {
-  margin-top: 8px;
-  padding: 8px 12px;
+.remove-pic-btn {
+  padding: 8px 14px;
   background: #ff4d4d;
   color: white;
   border: none;
@@ -81,6 +73,145 @@
   font-size: 14px;
 }
 
-.btn-remove-pic:hover {
+.remove-pic-btn:hover {
   background: #e60000;
+}
+
+
+/* ================================
+   FORM FIELDS
+   ================================ */
+
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-fields label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.profile-fields input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  font-size: 15px;
+}
+
+.profile-fields input:disabled {
+  opacity: 0.7;
+}
+
+
+/* ================================
+   EDIT / SAVE BUTTONS
+   ================================ */
+
+.edit-btn,
+.save-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-btn {
+  background: #007bff;
+}
+
+.edit-btn:hover {
+  background: #0065d1;
+}
+
+.save-btn {
+  background: #2ecc71;
+}
+
+.save-btn:hover {
+  background: #25b864;
+}
+
+
+/* ================================
+   RIGHT — ACTIONS CARD
+   ================================ */
+
+.profile-side {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.side-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: fit-content;
+}
+
+.side-btn {
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+  text-align: center;
+}
+
+.side-btn.primary {
+  background: #1e90ff;
+  color: white;
+}
+
+.side-btn.primary:hover {
+  background: #1877d5;
+}
+
+.side-btn.secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.side-btn.secondary:hover {
+  background: #5b6268;
+}
+
+.side-note {
+  text-align: center;
+  color: #777;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 900px) {
+  .profile-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-card,
+  .profile-side {
+    width: 100%;
+  }
 }

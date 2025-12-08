@@ -2,24 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Notification from "../components/Notification";
 import "../Styles/Profile.css";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+  const navigate = useNavigate();
 
-  // Correct ID from backend
+  const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const userId = storedUser?.id || storedUser?._id;
 
   const DEFAULT_AVATAR =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
-
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
     setTimeout(() => setPopup({ show: false, type: "", message: "" }), 2500);
   };
 
-  // Main form state
+  // -------------------------------------------------------------------
+  // FORM STATE
+  // -------------------------------------------------------------------
   const [form, setForm] = useState({
     userName: "",
     email: "",
@@ -33,9 +35,9 @@ function Profile() {
   const [editMode, setEditMode] = useState(false);
   const [profilePicFile, setProfilePicFile] = useState(null);
 
-  // --------------------------------------------------
-  // LOAD USER DATA ONCE
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
+  // LOAD USER DATA
+  // -------------------------------------------------------------------
   useEffect(() => {
     if (storedUser) {
       setForm({
@@ -50,22 +52,21 @@ function Profile() {
     }
   }, []);
 
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   // HANDLE INPUT CHANGE
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
 
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   // HANDLE PROFILE PIC CHANGE
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setProfilePicFile(file);
 
     if (file) {
-      // preview new pic
       setForm((prev) => ({
         ...prev,
         profilePic: URL.createObjectURL(file),
@@ -73,27 +74,27 @@ function Profile() {
     }
   };
 
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   // REMOVE PROFILE PIC
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   const removeProfilePic = () => {
     setProfilePicFile(null);
-    setForm((prev) => ({ ...prev, profilePic: DEFAULT_AVATAR }));
+    setForm((p) => ({ ...p, profilePic: DEFAULT_AVATAR }));
     showPopup("success", "Profile picture removed");
   };
 
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   // SAVE PROFILE
-  // --------------------------------------------------
+  // -------------------------------------------------------------------
   const saveProfile = async () => {
     try {
       const data = new FormData();
+
       data.append("userName", form.userName);
       data.append("email", form.email);
       data.append("address", form.address);
       data.append("city", form.city);
 
-      // LOCATION
       data.append(
         "location",
         JSON.stringify({
@@ -104,14 +105,12 @@ function Profile() {
         })
       );
 
-      // PROFILE PIC HANDLING
       if (profilePicFile) {
         data.append("profilePic", profilePicFile);
       } else if (form.profilePic === DEFAULT_AVATAR) {
         data.append("removePic", "true");
       }
 
-      // PATCH request
       const res = await axios.patch(
         `https://locallynk-production.up.railway.app/user/${userId}`,
         data
@@ -119,7 +118,6 @@ function Profile() {
 
       const updatedUser = res.data.user;
 
-      // Always save consistent ID
       localStorage.setItem(
         "user",
         JSON.stringify({ ...updatedUser, id: updatedUser._id })
@@ -127,7 +125,6 @@ function Profile() {
 
       showPopup("success", "Profile updated successfully!");
 
-      // Update UI
       setForm({
         userName: updatedUser.userName,
         email: updatedUser.email,
@@ -140,81 +137,105 @@ function Profile() {
 
       setEditMode(false);
     } catch (err) {
-      console.error(err);
+      console.log(err);
       showPopup("error", "Failed to update profile");
     }
   };
 
+  // -------------------------------------------------------------------
+  // RENDER UI
+  // -------------------------------------------------------------------
   return (
-    <div className="page-wrapper">
-      <div className="profile-container">
-        <h2 className="profile-title">My Profile</h2>
+    <div className="profile-page">
 
-        {/* Profile Image */}
-        <div className="profile-pic-wrapper">
-          <img
-            src={form.profilePic || DEFAULT_AVATAR}
-            alt="Profile"
-            className="profile-pic"
-          />
+      <div className="profile-inner">
 
-          {editMode && (
-            <>
-              <input type="file" onChange={handleFileChange} />
-              <button className="btn-remove" onClick={removeProfilePic}>
-                Remove Profile Picture
-              </button>
-            </>
+        {/* LEFT — PROFILE CARD */}
+        <div className="profile-card">
+
+          <h2 className="profile-title">My Profile</h2>
+
+          {/* Profile Image */}
+          <div className="profile-avatar">
+            <img src={form.profilePic} alt="Profile" />
+
+            {editMode && (
+              <div className="pic-controls">
+                <input type="file" onChange={handleFileChange} />
+                <button className="remove-pic-btn" onClick={removeProfilePic}>
+                  Remove Picture
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* FORM FIELDS */}
+          <div className="profile-fields">
+            <label>Username</label>
+            <input
+              name="userName"
+              value={form.userName}
+              onChange={handleChange}
+              disabled={!editMode}
+            />
+
+            <label>Email</label>
+            <input
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              disabled={!editMode}
+            />
+
+            <label>Address</label>
+            <input
+              name="address"
+              value={form.address}
+              onChange={handleChange}
+              disabled={!editMode}
+            />
+
+            <label>City</label>
+            <input
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+              disabled={!editMode}
+            />
+          </div>
+
+          {/* EDIT / SAVE BUTTON */}
+          {!editMode ? (
+            <button className="edit-btn" onClick={() => setEditMode(true)}>
+              Edit Profile
+            </button>
+          ) : (
+            <button className="save-btn" onClick={saveProfile}>
+              Save Changes
+            </button>
           )}
         </div>
 
-        {/* Profile Fields */}
-        <div className="profile-details">
-          <label>Username</label>
-          <input
-            name="userName"
-            value={form.userName}
-            onChange={handleChange}
-            disabled={!editMode}
-          />
+        {/* RIGHT — QUICK ACTIONS */}
+        <div className="profile-side">
+          <div className="side-card">
 
-          <label>Email</label>
-          <input
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            disabled={!editMode}
-          />
+            <button
+              className="side-btn primary"
+              onClick={() => navigate("/my-products")}
+            >
+              My Products
+            </button>
 
-          <label>Address</label>
-          <input
-            name="address"
-            value={form.address}
-            onChange={handleChange}
-            disabled={!editMode}
-          />
-
-          <label>City</label>
-          <input
-            name="city"
-            value={form.city}
-            onChange={handleChange}
-            disabled={!editMode}
-          />
+            <button className="side-btn secondary">
+              My Orders
+            </button>
+          </div>
         </div>
 
-        {/* Buttons */}
-        {!editMode ? (
-          <button className="btn-edit" onClick={() => setEditMode(true)}>
-            Edit Profile
-          </button>
-        ) : (
-          <button className="btn-save" onClick={saveProfile}>
-            Save Changes
-          </button>
-        )}
       </div>
 
+      {/* NOTIFICATION POPUP */}
       {popup.show && <Notification type={popup.type} message={popup.message} />}
     </div>
   );
