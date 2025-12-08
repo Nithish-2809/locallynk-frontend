@@ -35,11 +35,10 @@ function ProductInfo() {
 
   const seller = product.Seller;
 
-
   return (
     <div className="pd-wrapper">
 
-      {/* LEFT SIDE – IMAGE */}
+      {/* LEFT IMAGE */}
       <div className="pd-left">
         <img
           src={product.image}
@@ -48,7 +47,7 @@ function ProductInfo() {
         />
       </div>
 
-      {/* RIGHT SIDE – DETAILS */}
+      {/* RIGHT DETAILS */}
       <div className="pd-right">
 
         <h2 className="pd-name">{product.productName}</h2>
@@ -68,7 +67,7 @@ function ProductInfo() {
           </p>
         )}
 
-        {/* Google Maps link */}
+        {/* Google Maps */}
         {product.location?.coordinates && (
           <a
             href={`https://www.google.com/maps?q=${product.location.coordinates[1]},${product.location.coordinates[0]}`}
@@ -79,6 +78,11 @@ function ProductInfo() {
             View on Google Maps
           </a>
         )}
+
+        {/* ⭐ NEW — BUY NOW BUTTON */}
+        <button className="seller-products-btn" style={{ marginTop: "10px" }}>
+          Buy Now
+        </button>
 
         {/* SELLER CARD */}
         <div className="seller-card">
@@ -102,11 +106,18 @@ function ProductInfo() {
             </p>
           )}
 
+          {/* ⭐ NEW — CHAT OPTION BUTTON */}
+          <button
+            className="seller-products-btn"
+            style={{ background: "#3b82f6", marginBottom: "10px" }}
+          >
+            Chat with Seller
+          </button>
 
           {/* View seller products */}
           <button
             className="seller-products-btn"
-           onClick={() => navigate(`/seller-products/${seller._id}`)}
+            onClick={() => navigate(`/seller-products/${seller._id}`)}
           >
             View Seller’s Products
           </button>
