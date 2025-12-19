@@ -1,0 +1,195 @@
+/* =========================
+   CHAT LIST WRAPPER
+   ========================= */
+.chatlist-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* TITLE */
+.chatlist-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   CHAT ITEM
+   ========================= */
+.chatlist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.chatlist-item:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   AVATAR
+   ========================= */
+.chat-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  border: 1px solid #e2e8f0;
+}
+
+/* =========================
+   CHAT INFO (CENTER)
+   ========================= */
+.chatlist-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0; /* important for ellipsis */
+}
+
+.chatlist-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatlist-lastmsg {
+  font-size: 14px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   META (RIGHT SIDE)
+   ========================= */
+.chatlist-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* PRODUCT NAME */
+.chatlist-product {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3b82f6;
+  white-space: nowrap;
+}
+
+/* =========================
+   UNREAD BADGE (PRO)
+   ========================= */
+.unread-badge {
+  min-width: 20px;
+  height: 20px;
+
+  padding: 0 6px;
+  border-radius: 999px;
+
+  background: #22c55e; /* lime green */
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+.no-chats {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 16px;
+  color: #64748b;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* SMALL PHONES */
+@media (max-width: 480px) {
+  .chatlist-wrapper {
+    padding: 12px;
+  }
+
+  .chatlist-title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .chat-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chatlist-name {
+    font-size: 14px;
+  }
+
+  .chatlist-lastmsg {
+    font-size: 13px;
+  }
+
+  .chatlist-product {
+    font-size: 11px;
+  }
+
+  .unread-badge {
+    min-width: 18px;
+    height: 18px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+/* TABLETS */
+@media (min-width: 768px) {
+  .chatlist-item {
+    padding: 16px 14px;
+  }
+
+  .chat-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .chatlist-name {
+    font-size: 16px;
+  }
+
+  .chatlist-lastmsg {
+    font-size: 14.5px;
+  }
+}
+
+/* LARGE SCREENS */
+@media (min-width: 1024px) {
+  .chatlist-wrapper {
+    padding: 24px;
+  }
+}

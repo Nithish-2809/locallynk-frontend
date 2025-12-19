@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Notification from "../components/Notification";
 import "../Styles/Product.css";
 
 function ProductInfo() {
@@ -9,11 +10,12 @@ function ProductInfo() {
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [popup, setPopup] = useState(null);
 
   const fetchProduct = async () => {
     try {
       const res = await axios.get(
-        `https://locallynk-production.up.railway.app/product/${id}`
+        `https://locallynk.onrender.com/product/${id}`
       );
 
       setProduct(res.data.product);
@@ -29,14 +31,13 @@ function ProductInfo() {
   }, []);
 
   if (loading) return <p className="pd-loading">Loading product...</p>;
-
-  if (!product)
-    return <p className="pd-error">Product not found or sold out.</p>;
+  if (!product) return <p className="pd-error">Product not found or sold out.</p>;
 
   const seller = product.Seller;
 
   return (
     <div className="pd-wrapper">
+      {popup && <Notification type={popup.type} message={popup.message} />}
 
       {/* LEFT IMAGE */}
       <div className="pd-left">
@@ -49,25 +50,18 @@ function ProductInfo() {
 
       {/* RIGHT DETAILS */}
       <div className="pd-right">
-
         <h2 className="pd-name">{product.productName}</h2>
-
         <p className="pd-price">₹ {product.price}</p>
-
         <p className="pd-category">Category: {product.category}</p>
-
         <p className="pd-age">Condition: {product.age}</p>
-
         <p className="pd-description">{product.description}</p>
 
-        {/* LOCATION */}
         {product.location && (
           <p className="pd-location">
             📍 {product.location.city}, {product.location.address}
           </p>
         )}
 
-        {/* Google Maps */}
         {product.location?.coordinates && (
           <a
             href={`https://www.google.com/maps?q=${product.location.coordinates[1]},${product.location.coordinates[0]}`}
@@ -79,7 +73,6 @@ function ProductInfo() {
           </a>
         )}
 
-        {/* ⭐ NEW — BUY NOW BUTTON */}
         <button className="seller-products-btn" style={{ marginTop: "10px" }}>
           Buy Now
         </button>
@@ -106,15 +99,30 @@ function ProductInfo() {
             </p>
           )}
 
-          {/* ⭐ NEW — CHAT OPTION BUTTON */}
+          {/* CHAT BUTTON */}
           <button
             className="seller-products-btn"
             style={{ background: "#3b82f6", marginBottom: "10px" }}
+            onClick={() => {
+              const currentUser = JSON.parse(
+                localStorage.getItem("user") || "{}"
+              );
+              const myId = currentUser?._id || currentUser?.id;
+
+              if (myId === seller._id) {
+                setPopup({
+                  type: "error",
+                  message: "You cannot chat with yourself",
+                });
+                return;
+              }
+
+              navigate(`/chat/${seller._id}/${product._id}`);
+            }}
           >
             Chat with Seller
           </button>
 
-          {/* View seller products */}
           <button
             className="seller-products-btn"
             onClick={() => navigate(`/seller-products/${seller._id}`)}
@@ -122,7 +130,6 @@ function ProductInfo() {
             View Seller’s Products
           </button>
         </div>
-
       </div>
     </div>
   );

@@ -13,11 +13,11 @@ function Home() {
 
   const fetchProducts = async () => {
     try {
-      let url = "https://locallynk-production.up.railway.app/product";
+      let url = "https://locallynk.onrender.com/product";
 
       // If search query exists → use search API
       if (searchQuery) {
-        url = `https://locallynk-production.up.railway.app/product/search?name=${searchQuery}`;
+        url = `https://locallynk.onrender.com/product/search?name=${searchQuery}`;
       }
 
       const res = await axios.get(url);

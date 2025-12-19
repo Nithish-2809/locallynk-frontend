@@ -13,7 +13,7 @@ import Orders from "./pages/Orders";
 import Payment from "./pages/Payment";
 import ProductInfo from "./pages/ProductInfo";
 import SellerProducts from "./pages/SellerProducts";
-
+import Chatting from "./pages/Chatting";
 
 function App() {
   return (
@@ -32,10 +32,10 @@ function App() {
         <Route path="/product/:id" element={<ProductInfo />} />
 
         <Route path="/profile" element={<Profile />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chats" element={<Chat />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/product/:id" element={<ProductInfo />} />
-
+        <Route path="/chat/:userId/:productId" element={<Chatting />} />
         <Route path="/payment-success" element={<Payment />} />
       </Routes>
     </div>

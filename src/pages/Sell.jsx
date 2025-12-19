@@ -96,7 +96,7 @@ function Sell() {
       );
 
       await axios.post(
-        "https://locallynk-production.up.railway.app/product/add",
+        "https://locallynk.onrender.com/product/add",
         data,
         {
           headers: {
@@ -158,15 +158,7 @@ function Sell() {
         </div>
 
         {/* LOCATION STATUS */}
-        <p className="coords-text">
-          📍 Coordinates:
-          {loadingLocation
-            ? " Detecting..."
-            : form.latitude
-            ? ` ${form.latitude.toFixed(5)}, ${form.longitude.toFixed(5)}`
-            : " Location unavailable"}
-        </p>
-
+        
         {/* SUBMIT BUTTON */}
         <button
           className="sell-btn"

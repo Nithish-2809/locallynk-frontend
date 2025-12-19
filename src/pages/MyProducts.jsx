@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../Styles/MyProducts.css";
 
 function MyProducts() {
   const navigate = useNavigate();
+  const hasFetched = useRef(false);
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchMyProducts = async () => {
-    try {
-      const res = await axios.get(
-        "https://locallynk-production.up.railway.app/product/my-products",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          withCredentials: true,
-        }
-      );
-
-      console.log("MY PRODUCTS RESPONSE:", res.data);
-
-      setProducts(res.data.products || []);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching my products:", err);
-      setProducts([]);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    // 🚫 No token → don’t even try
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    
+
+    const fetchMyProducts = async () => {
+      try {
+        const res = await axios.get(
+          "https://locallynk.onrender.com/product/my-products",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setProducts(res.data.products || []);
+      } catch (err) {
+        console.error("Error fetching my products:", err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchMyProducts();
   }, []);
 

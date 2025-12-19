@@ -14,7 +14,7 @@ export default function SellerProducts() {
   const fetchSellerProducts = async () => {
     try {
         const res = await axios.get(
-            `https://locallynk-production.up.railway.app/product/seller/${userId}`
+            `https://locallynk.onrender.com/product/seller/${userId}`
             );
 
 

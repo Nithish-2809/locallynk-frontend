@@ -62,7 +62,7 @@ export default function Nav() {
         {isLoggedIn && (
           <>
             <NavLink to="/sell" className="nav-link">Sell</NavLink>
-            <NavLink to="/chat" className="nav-link">Chats</NavLink>
+            <NavLink to="/chats" className="nav-link">Chats</NavLink>
             <NavLink to="/profile" className="nav-link">Profile</NavLink>
             <span className="nav-link logout-btn" onClick={handleLogout}>
               Logout

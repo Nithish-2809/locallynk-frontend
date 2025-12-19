@@ -105,7 +105,7 @@ function Profile() {
       }
 
       const res = await axios.patch(
-        `https://locallynk-production.up.railway.app/user/${userId}`,
+        `https://locallynk.onrender.com/user/${userId}`,
         data
       );
 

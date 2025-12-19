@@ -38,7 +38,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "https://locallynk-production.up.railway.app/user/login",
+        "https://locallynk.onrender.com/user/login",
         formData
       );
 
@@ -62,7 +62,7 @@ const Login = () => {
       const decoded = jwtDecode(credentialResponse.credential);
 
       const res = await axios.post(
-        "https://locallynk-production.up.railway.app/user/login",
+        "https://locallynk.onrender.com/user/login",
         {
           email: decoded.email,
           password: decoded.sub

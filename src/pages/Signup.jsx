@@ -90,7 +90,7 @@ const Signup = () => {
       }
 
       await axios.post(
-        "https://locallynk-production.up.railway.app/user/signup",
+        "https://locallynk.onrender.com/user/signup",
         data
       );
 
