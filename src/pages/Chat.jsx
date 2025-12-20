@@ -9,6 +9,8 @@ const Chat = () => {
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   const myId = currentUser?._id || currentUser?.id;
 
+  
+
   const fetchChats = async () => {
     try {
       const res = await axios.get(
@@ -21,7 +23,7 @@ const Chat = () => {
       );
 
       setChats(res.data.chats || []);
-    } catch (err) {
+    } catch (err) { 
       console.error("Failed to load chats", err);
     }
   };

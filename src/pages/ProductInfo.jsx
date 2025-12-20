@@ -12,12 +12,18 @@ function ProductInfo() {
   const [loading, setLoading] = useState(true);
   const [popup, setPopup] = useState(null);
 
+  /* ---------- popup helper ---------- */
+  const showPopup = (type, message) => {
+    setPopup({ type, message });
+    setTimeout(() => setPopup(null), 3000);
+  };
+
+  /* ---------- fetch product ---------- */
   const fetchProduct = async () => {
     try {
       const res = await axios.get(
         `https://locallynk.onrender.com/product/${id}`
       );
-
       setProduct(res.data.product);
       setLoading(false);
     } catch (err) {
@@ -31,7 +37,8 @@ function ProductInfo() {
   }, []);
 
   if (loading) return <p className="pd-loading">Loading product...</p>;
-  if (!product) return <p className="pd-error">Product not found or sold out.</p>;
+  if (!product)
+    return <p className="pd-error">Product not found or sold out.</p>;
 
   const seller = product.Seller;
 
@@ -99,7 +106,7 @@ function ProductInfo() {
             </p>
           )}
 
-          {/* CHAT BUTTON */}
+          {/* CHAT WITH SELLER */}
           <button
             className="seller-products-btn"
             style={{ background: "#3b82f6", marginBottom: "10px" }}
@@ -110,19 +117,21 @@ function ProductInfo() {
               const myId = currentUser?._id || currentUser?.id;
 
               if (myId === seller._id) {
-                setPopup({
-                  type: "error",
-                  message: "You cannot chat with yourself",
-                });
+                showPopup("error", "You cannot chat with yourself");
                 return;
               }
 
-              navigate(`/chat/${seller._id}/${product._id}`);
+              navigate(`/chat/${seller._id}/${product._id}`, {
+                state: {
+                  receiver: seller,
+                },
+              });
             }}
           >
             Chat with Seller
           </button>
 
+          {/* VIEW SELLER PRODUCTS */}
           <button
             className="seller-products-btn"
             onClick={() => navigate(`/seller-products/${seller._id}`)}

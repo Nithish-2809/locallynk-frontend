@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiMapPin } from "react-icons/fi";
 import "../Styles/Nav.css";
 
 export default function Nav() {
@@ -16,24 +16,34 @@ export default function Nav() {
     window.location.reload();
   };
 
-  // 🔍 SEARCH FUNCTION
   const handleSearch = () => {
     if (!searchText.trim()) return;
-
     navigate(`/?search=${encodeURIComponent(searchText)}`);
+  };
+
+  const handleNearby = () => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        navigate(`/?near=true&lat=${latitude}&lng=${longitude}`);
+      },
+      () => alert("Please allow location access to search nearby products")
+    );
   };
 
   return (
     <nav className="nav">
-
-      {/* Logo */}
+      {/* LOGO */}
       <div className="nav-left">
         <Link to="/" className="nav-logo">
-          Local<span className="logo-accent">Lynk</span>
+          <img src="/Logo.png" alt="LocalLynk" className="nav-logo-img" />
+          <span className="nav-logo-text">
+            Local<span className="logo-accent">Lynk</span>
+          </span>
         </Link>
       </div>
 
-      {/* Search */}
+      {/* SEARCH + NEARBY */}
       <div className="nav-center">
         <div className="search-box">
           <input
@@ -47,11 +57,18 @@ export default function Nav() {
             <FiSearch size={18} />
           </button>
         </div>
+
+        <button
+          className="nearby-btn-icon"
+          title="Search nearby products"
+          onClick={handleNearby}
+        >
+          <FiMapPin size={18} />
+        </button>
       </div>
 
-      {/* Right Navigation */}
+      {/* RIGHT LINKS */}
       <div className="nav-right">
-
         {!isLoggedIn && (
           <>
             <NavLink to="/login" className="nav-link">Login</NavLink>
@@ -69,7 +86,6 @@ export default function Nav() {
             </span>
           </>
         )}
-
       </div>
     </nav>
   );

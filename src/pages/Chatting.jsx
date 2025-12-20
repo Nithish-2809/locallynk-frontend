@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import Notification from "../components/Notification";
@@ -11,14 +11,13 @@ const socket = io("https://locallynk.onrender.com", {
 
 const Chatting = () => {
   const { userId, productId } = useParams();
-  const navigate = useNavigate();
-
+  const { state } = useLocation(); // ⭐ receive seller data
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const myId = storedUser?._id || storedUser?.id;
 
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
-  const [receiver, setReceiver] = useState(null);
+  const [receiver, setReceiver] = useState(state?.receiver || null);
   const [popup, setPopup] = useState(null);
 
   const bottomRef = useRef(null);
@@ -34,7 +33,7 @@ const Chatting = () => {
     if (userId === myId) {
       showPopup("error", "You cannot chat with yourself");
     }
-  }, [userId, myId, navigate]);
+  }, [userId, myId]);
 
   /* ---------- auto scroll ---------- */
   useEffect(() => {
@@ -56,7 +55,7 @@ const Chatting = () => {
     return () => socket.off("receiveMessage");
   }, [myId, userId, productId]);
 
-  /* ---------- fetch chat ---------- */
+  /* ---------- fetch chat history ---------- */
   const fetchChat = async () => {
     try {
       const res = await axios.get(
@@ -70,7 +69,8 @@ const Chatting = () => {
 
       setMessages(res.data.chat || []);
 
-      if (res.data.chat?.length) {
+      // ✅ derive receiver from messages if available
+      if (res.data.chat?.length && !receiver) {
         const msg = res.data.chat[0];
         setReceiver(
           msg.sender._id === myId ? msg.receiver : msg.sender
@@ -85,6 +85,21 @@ const Chatting = () => {
     if (userId && productId) fetchChat();
   }, [userId, productId]);
 
+  /* ---------- mark as read ---------- */
+  useEffect(() => {
+    if (!userId || !productId) return;
+
+    axios.patch(
+      "https://locallynk.onrender.com/message/read",
+      { userId, productId },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  }, [userId, productId]);
+
   /* ---------- send message ---------- */
   const sendMessage = async () => {
     if (!text.trim()) return;
@@ -93,7 +108,11 @@ const Chatting = () => {
       await axios.post(
         "https://locallynk.onrender.com/message/store",
         { message: text, receiverId: userId, productId },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
       socket.emit("sendMessage", {
@@ -117,19 +136,6 @@ const Chatting = () => {
       showPopup("error", "Message not sent");
     }
   };
-  useEffect(() => {
-  if (!userId || !productId) return;
-
-  axios.patch(
-    "https://locallynk.onrender.com/message/read",
-    { userId, productId },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }
-  );
-}, [userId, productId]);
 
   /* ---------- helpers ---------- */
   const formatDate = (date) =>
@@ -147,31 +153,26 @@ const Chatting = () => {
 
   let lastDate = "";
 
-  console.log(receiver)
-
   return (
     <div className="chat-wrapper">
       {popup && <Notification type={popup.type} message={popup.message} />}
 
       {/* HEADER */}
-      {/* HEADER */}
-        <div className="chat-header">
+      <div className="chat-header">
         <div className="chat-header-left">
-            <img
+          <img
             src={
-                receiver?.profilePic ||
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              receiver?.profilePic ||
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             }
             alt="User"
             className="chat-avatar"
-            />
-
-            <div className="chat-user-info">
+          />
+          <div className="chat-user-info">
             <h3>{receiver?.userName || "Chat"}</h3>
-            </div>
+          </div>
         </div>
-        </div>
-
+      </div>
 
       {/* BODY */}
       <div className="chat-body">
@@ -193,20 +194,19 @@ const Chatting = () => {
                 {msg.message}
 
                 <span className="chat-meta">
-                    <span className="chat-time">
-                        {formatTime(msg.createdAt)}
-                    </span>
+                  <span className="chat-time">
+                    {formatTime(msg.createdAt)}
+                  </span>
 
-                    {isOwn && (
+                  {isOwn && (
                     <span
-                        className={`chat-tick ${msg.isRead ? "read" : ""}`}
+                      className={`chat-tick ${msg.isRead ? "read" : ""}`}
                     >
-                        ✔✔
+                      ✔✔
                     </span>
-                    )}
+                  )}
                 </span>
-                </div>
-
+              </div>
             </React.Fragment>
           );
         })}
