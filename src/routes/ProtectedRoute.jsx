@@ -1,9 +1,39 @@
-import React from 'react'
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Notification from "../components/Notification";
 
-function ProtectedRoute() {
-  return (
-    <div>ProtectedRoute</div>
-  )
-}
+const ProtectedRoute = () => {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-export default ProtectedRoute
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (!token) {
+      setShowPopup(true);
+
+      const timer = setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [token, navigate]);
+
+  if (!token) {
+    return (
+      <>
+        {showPopup && (
+          <Notification
+            type="error"
+            message="Please login to continue"
+          />
+        )}
+      </>
+    );
+  }
+
+  return <Outlet />;
+};
+
+export default ProtectedRoute;

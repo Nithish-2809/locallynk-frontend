@@ -1,20 +1,25 @@
-/* ========== WRAPPER ========== */
+/* ========== PAGE WRAPPER ========== */
 .home-wrapper {
-  padding: 20px;
+  padding: 28px 22px;
+  background: #f8fafc;
+  min-height: 100vh;
 }
 
+/* ========== TITLE ========== */
 .home-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 20px;
+  color: #0f172a;
+  margin-bottom: 26px;
   text-align: center;
+  letter-spacing: -0.4px;
 }
 
+/* ========== STATES ========== */
 .loading-text,
 .no-products {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 50px;
   font-size: 18px;
   color: #64748b;
 }
@@ -22,25 +27,25 @@
 /* ========== PRODUCT GRID ========== */
 .product-grid {
   display: grid;
-  grid-template-columns: 1fr; /* 🔥 MOBILE FIRST */
-  gap: 22px;
+  grid-template-columns: 1fr; /* Mobile first */
+  gap: 26px;
 }
 
-/* Tablet */
+/* Small Tablets */
 @media (min-width: 576px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Medium Devices */
+/* Tablets */
 @media (min-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Large Devices */
+/* Large Screens */
 @media (min-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -49,45 +54,43 @@
 
 /* ========== PRODUCT CARD ========== */
 .product-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 18px;
   overflow: hidden;
-  padding-bottom: 12px;
 
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  transition: 0.25s ease;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.14);
 }
 
-/* Product image */
+/* Image */
 .product-image {
   width: 100%;
-  height: 200px;
+  height: 210px;
   object-fit: cover;
 }
 
-/* ========== INFO ========== */
+/* ========== INFO SECTION ========== */
 .product-info {
-  padding: 14px;
+  padding: 16px 16px 10px;
 }
 
 .product-name {
   font-size: 18px;
   font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 5px;
+  color: #0f172a;
+  margin-bottom: 4px;
 }
 
 .product-price {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 700;
-  color: limegreen;
-  margin-bottom: 8px;
+  color: #22c55e;
+  margin-bottom: 6px;
 }
 
 .product-category {
@@ -96,48 +99,48 @@
 }
 
 .product-age {
-  font-size: 15px;
-  margin-bottom: 6px;
+  font-size: 14px;
   color: #475569;
+  margin-top: 4px;
 }
 
 .product-seller span {
   font-weight: 600;
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .product-location {
-  font-size: 14px;
-  color: #334155;
-  margin-top: 4px;
+  font-size: 13px;
+  color: #475569;
+  margin-top: 6px;
 }
 
 /* ========== VIEW BUTTON ========== */
 .view-btn {
-  width: calc(100% - 24px);
-  margin: 12px;
-  padding: 10px;
+  width: calc(100% - 32px);
+  margin: 12px 16px;
 
-  background: limegreen;
+  padding: 12px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
 
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-
-  transition: 0.25s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .view-btn:hover {
-  background: #17a110;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(34, 197, 94, 0.35);
 }
 
-/* EXTRA SMALL DEVICES FIX */
+/* ========== SMALL DEVICES ========== */
 @media (max-width: 380px) {
   .home-title {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .product-name {

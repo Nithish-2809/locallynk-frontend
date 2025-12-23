@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import Loader from "../components/Loader"; // ✅ ADD
 import "../Styles/Home.css";
 
 function Home() {
@@ -39,11 +40,11 @@ function Home() {
 
       const res = await axios.get(url);
       setProducts(res.data.products || []);
-      setLoading(false);
 
     } catch (error) {
       console.error("Failed to load products:", error);
-      setLoading(false);
+    } finally {
+      setLoading(false); // ✅ ALWAYS stop loader
     }
   };
 
@@ -55,99 +56,102 @@ function Home() {
      UI
      --------------------------------- */
   return (
-    <div className="home-wrapper">
+    <>
+      {/* ✅ GLOBAL LOADER */}
+      {loading && <Loader text="Loading products..." />}
 
-      {/* TITLE BASED ON MODE */}
-      {nearby && (
-        <h2 className="home-title">
-          Nearby Products 📍
-        </h2>
-      )}
+      <div className="home-wrapper">
 
-      {!nearby && !searchQuery && (
-        <h2 className="home-title">
-          Latest Products
-        </h2>
-      )}
+        {/* TITLE BASED ON MODE */}
+        {nearby && (
+          <h2 className="home-title">
+            Nearby Products 📍
+          </h2>
+        )}
 
-      {searchQuery && (
-        <h2 className="home-title">
-          Search results for "{searchQuery}"
-        </h2>
-      )}
+        {!nearby && !searchQuery && (
+          <h2 className="home-title">
+            Latest Products
+          </h2>
+        )}
 
-      {/* STATES */}
-      {loading ? (
-        <p className="loading-text">Loading products...</p>
-      ) : products.length === 0 ? (
-        <p className="no-products">No products found</p>
-      ) : (
-        <div className="product-grid">
-          {products.map((product) => (
-            <div className="product-card" key={product._id}>
+        {searchQuery && (
+          <h2 className="home-title">
+            Search results for "{searchQuery}"
+          </h2>
+        )}
 
-              {/* IMAGE */}
-              <img
-                src={product.image}
-                alt={product.productName}
-                className="product-image"
-              />
+        {/* STATES */}
+        {!loading && products.length === 0 ? (
+          <p className="no-products">No products found</p>
+        ) : (
+          <div className="product-grid">
+            {products.map((product) => (
+              <div className="product-card" key={product._id}>
 
-              {/* INFO */}
-              <div className="product-info">
-                <h3 className="product-name">
-                  {product.productName}
-                </h3>
+                {/* IMAGE */}
+                <img
+                  src={product.image}
+                  alt={product.productName}
+                  className="product-image"
+                />
 
-                <p className="product-price">
-                  ₹ {product.price}
-                </p>
+                {/* INFO */}
+                <div className="product-info">
+                  <h3 className="product-name">
+                    {product.productName}
+                  </h3>
 
-                <p className="product-category">
-                  {product.category}
-                </p>
-
-                <p className="product-age">
-                  Condition: {product.age}
-                </p>
-
-                {/* SELLER */}
-                {product.Seller && (
-                  <p className="product-seller">
-                    Seller: <span>{product.Seller.userName}</span>
+                  <p className="product-price">
+                    ₹ {product.price}
                   </p>
-                )}
 
-                {/* LOCATION */}
-                {product.location?.city && (
-                  <p className="product-location">
-                    📍 {product.location.city}, {product.location.address}
+                  <p className="product-category">
+                    {product.category}
                   </p>
-                )}
 
-                {/* DISTANCE (NEARBY MODE ONLY) */}
-                {product.distanceKm && (
-                  <p className="product-distance">
-                    🛣️ {product.distanceKm} away
+                  <p className="product-age">
+                    Condition: {product.age}
                   </p>
-                )}
+
+                  {/* SELLER */}
+                  {product.Seller && (
+                    <p className="product-seller">
+                      Seller: <span>{product.Seller.userName}</span>
+                    </p>
+                  )}
+
+                  {/* LOCATION */}
+                  {product.location?.city && (
+                    <p className="product-location">
+                      📍 {product.location.city}, {product.location.address}
+                    </p>
+                  )}
+
+                  {/* DISTANCE (NEARBY MODE ONLY) */}
+                  {product.distanceKm && (
+                    <p className="product-distance">
+                      🛣️ {product.distanceKm} away
+                    </p>
+                  )}
+                </div>
+
+                {/* VIEW BUTTON */}
+                <button
+                  className="view-btn"
+                  onClick={() =>
+                    window.location.href = `/product/${product._id}`
+                  }
+                >
+                  View Details
+                </button>
+
               </div>
-
-              {/* VIEW BUTTON */}
-              <button
-                className="view-btn"
-                onClick={() =>
-                  window.location.href = `/product/${product._id}`
-                }
-              >
-                View Details
-              </button>
-
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

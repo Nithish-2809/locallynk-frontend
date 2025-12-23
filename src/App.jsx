@@ -1,6 +1,6 @@
-import {  Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
-import "./App.css"
+import "./App.css";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,32 +15,34 @@ import ProductInfo from "./pages/ProductInfo";
 import SellerProducts from "./pages/SellerProducts";
 import Chatting from "./pages/Chatting";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 function App() {
   return (
-  <div>
-      <Nav/>
+    <div>
+      <Nav />
 
       <Routes>
+        {/* 🌍 PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
-        <Route path="/sell" element={<Sell />} />
-        <Route path="/my-products" element={<MyProducts />} />
+        <Route path="/product/:id" element={<ProductInfo />} />
         <Route path="/seller-products/:userId" element={<SellerProducts />} />
-        <Route path="/product/:id" element={<ProductInfo />} />
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/chats" element={<Chat />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/product/:id" element={<ProductInfo />} />
-        <Route path="/chat/:userId/:productId" element={<Chatting />} />
-        <Route path="/payment-success" element={<Payment />} />
+        {/* 🔒 PROTECTED ROUTES */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/my-products" element={<MyProducts />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/chats" element={<Chat />} />
+          <Route path="/chat/:userId/:productId" element={<Chatting />} />
+          <Route path="/payment-success" element={<Payment />} />
+        </Route>
       </Routes>
     </div>
-
   );
 }
 
-export default App
+export default App;

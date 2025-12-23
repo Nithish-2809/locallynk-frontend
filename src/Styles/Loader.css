@@ -1,0 +1,51 @@
+/* FULL SCREEN OVERLAY */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.55); /* dark glass */
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.loader-card {
+  background: white;
+  padding: 26px 34px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* SPINNER */
+.spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid limegreen;
+  animation: spin 0.9s linear infinite;
+}
+
+/* TEXT */
+.loader-card p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

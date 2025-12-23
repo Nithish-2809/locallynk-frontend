@@ -1,58 +1,57 @@
 /* ================================
-   MAIN PAGE LAYOUT
+   PAGE LAYOUT
    ================================ */
-
 .profile-page {
   width: 100%;
-  min-height: 90vh;
-  padding: 40px 0;
+  min-height: calc(100vh - 100px);
+  padding: 50px 0;
   display: flex;
   justify-content: center;
-  background: #f5f7fa;
+  background: #f8fafc;
 }
 
 .profile-inner {
-  width: 90%;
+  width: 92%;
   max-width: 1200px;
   display: flex;
-  justify-content: space-between;
   gap: 40px;
+  align-items: flex-start;
 }
 
-
 /* ================================
-   LEFT — PROFILE CARD
+   PROFILE CARD
    ================================ */
-
 .profile-card {
-  width: 55%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  padding: 35px;
-  border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  width: 60%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 36px;
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
 }
 
 .profile-title {
   text-align: center;
   font-size: 26px;
   font-weight: 700;
-  color: #222;
-  margin-bottom: 25px;
+  color: #0f172a;
+  margin-bottom: 28px;
 }
 
-/* Avatar */
+/* ================================
+   AVATAR
+   ================================ */
 .profile-avatar {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
 }
 
 .profile-avatar img {
-  width: 130px;
-  height: 130px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
 }
 
 .pic-controls {
@@ -64,24 +63,24 @@
 }
 
 .remove-pic-btn {
-  padding: 8px 14px;
-  background: #ff4d4d;
+  padding: 8px 16px;
+  background: #ef4444;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s ease;
 }
 
 .remove-pic-btn:hover {
-  background: #e60000;
+  background: #dc2626;
 }
-
 
 /* ================================
    FORM FIELDS
    ================================ */
-
 .profile-fields {
   display: flex;
   flex-direction: column;
@@ -89,121 +88,124 @@
 }
 
 .profile-fields label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: #444;
+  color: #475569;
 }
 
 .profile-fields input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   background: #fafafa;
-  font-size: 15px;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-fields input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  outline: none;
 }
 
 .profile-fields input:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-
 /* ================================
-   EDIT / SAVE BUTTONS
+   ACTION BUTTONS
    ================================ */
-
 .edit-btn,
 .save-btn {
-  margin-top: 25px;
+  margin-top: 26px;
   width: 100%;
   padding: 14px;
-  border-radius: 10px;
+  border-radius: 14px;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   border: none;
   cursor: pointer;
   font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .edit-btn {
-  background: #007bff;
+  background: linear-gradient(135deg, #f10707, #e65405);
 }
 
 .edit-btn:hover {
-  background: #0065d1;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(232, 79, 2, 0.35);
+}
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(34, 197, 94, 0.35);
 }
 
 .save-btn {
-  background: #2ecc71;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
 }
-
-.save-btn:hover {
-  background: #25b864;
-}
-
 
 /* ================================
-   RIGHT — ACTIONS CARD
+   SIDE ACTIONS
    ================================ */
-
 .profile-side {
-  width: 35%;
+  width: 40%;
   display: flex;
-  justify-content: center;
 }
 
 .side-card {
   width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 28px;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 22px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+
   display: flex;
   flex-direction: column;
   gap: 18px;
-  height: fit-content;
 }
 
 .side-btn {
   padding: 14px;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 14px;
+  font-size: 15px;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.25s;
+  transition: 0.2s ease;
   text-align: center;
 }
 
 .side-btn.primary {
-  background: #1e90ff;
+  background: #0f172a;
   color: white;
 }
 
 .side-btn.primary:hover {
-  background: #1877d5;
+  background: #020617;
 }
 
 .side-btn.secondary {
-  background: #6c757d;
-  color: white;
+  background: #e5e7eb;
+  color: #0f172a;
 }
 
 .side-btn.secondary:hover {
-  background: #5b6268;
+  background: #d1d5db;
 }
 
 .side-note {
   text-align: center;
-  color: #777;
-  margin-top: 10px;
-  font-size: 14px;
+  color: #64748b;
+  margin-top: 12px;
+  font-size: 13px;
 }
 
-
 /* ================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ================================ */
-
 @media (max-width: 900px) {
   .profile-inner {
     flex-direction: column;

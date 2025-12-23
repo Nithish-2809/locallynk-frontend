@@ -1,127 +1,164 @@
+/* =========================
+   PAGE WRAPPER
+   ========================= */
 .pd-wrapper {
   display: flex;
-  gap: 30px;
-  padding: 24px;
+  gap: 36px;
+  padding: 32px 28px;
+  background: #f8fafc;
+  min-height: calc(100vh - 120px);
 }
 
-/* LEFT IMAGE */
+/* =========================
+   LEFT IMAGE
+   ========================= */
 .pd-left {
   width: 45%;
 }
 
 .pd-image {
   width: 100%;
-  max-height: 500px;
+  max-height: 520px;
   object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
 }
 
-/* RIGHT INFO */
+/* =========================
+   RIGHT INFO
+   ========================= */
 .pd-right {
   width: 55%;
+  display: flex;
+  flex-direction: column;
 }
 
+/* TITLE */
 .pd-name {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 12px;
-}
-
-.pd-price {
   font-size: 30px;
-  font-weight: 800;
-  color: limegreen;
-  margin-bottom: 10px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
 }
 
+/* PRICE */
+.pd-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #22c55e;
+  margin-bottom: 14px;
+}
+
+/* META INFO */
 .pd-category,
 .pd-age,
 .pd-description,
 .pd-location {
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 15px;
+  margin-bottom: 10px;
   color: #475569;
+  line-height: 1.6;
 }
 
+/* MAP LINK */
 .pd-map-link {
   display: inline-block;
-  margin-bottom: 20px;
-  color: limegreen;
+  margin-bottom: 22px;
+  color: #22c55e;
   font-weight: 600;
+  text-decoration: none;
 }
 
-/* SELLER CARD */
+.pd-map-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   SELLER CARD
+   ========================= */
 .seller-card {
-  margin-top: 25px;
-  padding: 18px;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  background: #fff;
-  width: 100%;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
+/* SELLER IMAGE */
 .seller-image {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  margin: 10px 0;
+  margin: 14px 0 10px;
   object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* SELLER TEXT */
 .seller-name {
   font-size: 20px;
   font-weight: 600;
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .seller-email {
-  color: #475569;
-  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
 .seller-location {
-  color: #334155;
-}
-
-.seller-joined {
+  color: #475569;
   font-size: 14px;
-  color: #64748b;
-  margin-top: 4px;
 }
 
+/* =========================
+   ACTION BUTTONS
+   ========================= */
 .seller-products-btn {
-  margin-top: 12px;
-  padding: 10px;
+  margin-top: 14px;
+  padding: 12px;
   width: 100%;
-  background: limegreen;
+
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
+
   border: none;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: 0.25s;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .seller-products-btn:hover {
-  background: #17a110;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(34, 197, 94, 0.35);
 }
 
-/* LOADING + ERROR */
+/* =========================
+   LOADING / ERROR
+   ========================= */
 .pd-loading,
 .pd-error {
-  padding: 40px;
+  padding: 60px;
   text-align: center;
   font-size: 18px;
-  color: #475569;
+  color: #64748b;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 900px) {
   .pd-wrapper {
     flex-direction: column;
+    padding: 24px 18px;
   }
 
   .pd-left,
@@ -130,7 +167,16 @@
   }
 
   .pd-image {
-    height: 350px;
+    height: 360px;
   }
 }
 
+@media (max-width: 480px) {
+  .pd-name {
+    font-size: 24px;
+  }
+
+  .pd-price {
+    font-size: 26px;
+  }
+}

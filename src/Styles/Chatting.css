@@ -4,38 +4,48 @@
 .chat-wrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 70px); 
+  height: calc(100vh - 90px);
   background: #f8fafc;
-  position: relative;
-  border: 2px solid black;
-  border-radius: 20px;
-  padding: 2%;
+
+  border-radius: 22px;
+  padding: 16px;
+
+  max-width: 900px;
+  margin: 0 auto;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
 }
 
 /* =========================
-   HEADER
+   HEADER (KLASSY)
    ========================= */
 .chat-header {
-  padding: 12px 16px;
-  background: #ddd6d6aa;
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.9);
+
+  border-radius: 16px;
+  margin-bottom: 10px;
+
+  backdrop-filter: blur(6px);
 }
 
+/* Seller / User Name */
 .chat-header h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  color: #1e293b;
-  text-align: center;
+  color: #0f172a;
+  text-align: left;
 }
 
+/* Product info */
 .chat-product {
-  display: block;
-  text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   color: #64748b;
-  margin-top: 2px;
+  text-align: left;
 }
 
 /* =========================
@@ -43,12 +53,12 @@
    ========================= */
 .chat-body {
   flex: 1;
-  padding: 14px;
+  padding: 16px;
   overflow-y: auto;
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* =========================
@@ -56,51 +66,67 @@
    ========================= */
 .date-separator {
   align-self: center;
-  padding: 4px 10px;
-  background: #e2e8f0;
+  padding: 6px 14px;
+  background: #e5e7eb;
   color: #475569;
   font-size: 12px;
-  border-radius: 8px;
-  margin: 8px 0;
+  border-radius: 999px;
+  margin: 12px 0;
 }
 
 /* =========================
    MESSAGE BUBBLES
    ========================= */
 .chat-msg {
-  max-width: 85%;
+  max-width: 75%;
   padding: 10px 14px;
 
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
+  border-radius: 16px 16px 16px 4px;
 
   font-size: 14px;
-  line-height: 1.45;
-  color: #1e293b;
+  line-height: 1.5;
+  color: #0f172a;
 
   align-self: flex-start;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  word-break: break-word;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 
+  word-break: break-word;
   animation: slideUp 0.2s ease;
 }
 
 /* OWN MESSAGE */
 .chat-msg.own {
-  background: rgb(20, 152, 20);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: #ffffff;
-  border: none;
+
   align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
 }
 
-/* MESSAGE TIME */
-.chat-time {
-  display: block;
+/* =========================
+   MESSAGE META
+   ========================= */
+.chat-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
   margin-top: 4px;
+}
+
+.chat-time {
   font-size: 11px;
   opacity: 0.7;
-  text-align: right;
+}
+
+.chat-tick {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chat-tick.read {
+  color: #38bdf8;
 }
 
 /* =========================
@@ -110,55 +136,58 @@
   display: flex;
   gap: 10px;
   padding: 12px;
-
   background: #ffffff;
-  border-top: 1px solid #e2e8f0;
+
+  border-radius: 16px;
+  margin-top: 10px;
+
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
 }
 
-/* TEXTAREA */
 .chat-input textarea {
   flex: 1;
   resize: none;
 
-  padding: 10px 12px;
-  min-height: 40px;
+  padding: 10px 14px;
+  min-height: 42px;
   max-height: 120px;
 
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 
   font-size: 14px;
-  color: #1e293b;
   outline: none;
 }
 
 .chat-input textarea:focus {
-  border-color: limegreen;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
 }
 
 /* SEND BUTTON */
 .chat-input button {
-  padding: 0 16px;
+  padding: 0 18px;
 
-  background: limegreen;
-  color: #ffffff;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
 
   font-size: 14px;
   font-weight: 600;
 
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: 0.2s ease;
 }
 
 .chat-input button:hover:not(:disabled) {
-  background: limegreen;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.35);
 }
 
 .chat-input button:disabled {
-  background: #94a3b8;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -188,96 +217,18 @@
   }
 }
 
-/* ==================================================
-   RESPONSIVE BREAKPOINTS
-   ================================================== */
-
-/* VERY SMALL DEVICES */
-@media (max-width: 360px) {
-  .chat-header h3 {
-    font-size: 16px;
-  }
-
-  .chat-msg {
-    max-width: 90%;
-    font-size: 13px;
-    padding: 8px 12px;
-  }
-
-  .chat-input textarea {
-    font-size: 13px;
-  }
-
-  .chat-input button {
-    font-size: 13px;
-    padding: 0 14px;
-  }
-}
-
-/* PHONES */
-@media (min-width: 480px) {
-  .chat-msg {
-    max-width: 80%;
-  }
-
-  .chat-header h3 {
-    font-size: 19px;
-  }
-}
-
-/* TABLETS */
-@media (min-width: 768px) {
-  .chat-wrapper {
-    height: calc(100vh - 80px);
-  }
-
-  .chat-body {
-    padding: 18px;
-  }
-
-  .chat-msg {
-    max-width: 70%;
-    font-size: 15px;
-  }
-
-  .chat-input textarea {
-    font-size: 15px;
-  }
-
-  .chat-input button {
-    font-size: 15px;
-  }
-}
-
-/* DESKTOP */
-@media (min-width: 1024px) {
-  .chat-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .chat-msg {
-    max-width: 65%;
-  }
-}
-
 /* =========================
-   MESSAGE META (TIME + TICKS)
+   RESPONSIVE
    ========================= */
-.chat-meta {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-}
+@media (max-width: 480px) {
+  .chat-wrapper {
+    padding: 12px;
+    border-radius: 0;
+    height: calc(100vh - 70px);
+  }
 
-.chat-tick {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.7); /* default for own message */
-}
-
-/* READ ✔✔ */
-.chat-tick.read {
-  color: blue; /* light green */
+  .chat-msg {
+    max-width: 85%;
+    font-size: 13px;
+  }
 }

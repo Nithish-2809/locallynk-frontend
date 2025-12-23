@@ -27,7 +27,7 @@ const Signup = () => {
     longitude: "",
   });
 
-  // 📍 GPS Auto-detection
+  // 📍 GPS Auto-detection (FUNCTIONALITY KEPT)
   useEffect(() => {
     if (!navigator.geolocation) {
       showPopup("error", "Geolocation not supported!");
@@ -59,7 +59,13 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.userName || !formData.email || !formData.password || !formData.address || !formData.city) {
+    if (
+      !formData.userName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.address ||
+      !formData.city
+    ) {
       showPopup("error", "All fields are required!");
       return;
     }
@@ -105,7 +111,7 @@ const Signup = () => {
     }
   };
 
-  // ✅ GOOGLE DETECTOR (NO API CALL HERE)
+  // ✅ GOOGLE DETECTOR
   const handleGoogleSignup = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
 
@@ -175,16 +181,17 @@ const Signup = () => {
           <input type="file" accept="image/*" onChange={handleFile} />
         )}
 
-        <div className="coords">
-          <strong>Location:</strong>{" "}
-          {formData.latitude
-            ? `${formData.latitude}, ${formData.longitude}`
-            : "Detecting..."}
-        </div>
-
         <button type="submit" className="signup-btn" disabled={loading}>
           {loading ? "Please wait..." : "Signup"}
         </button>
+
+        {/* ✅ LOGIN REDIRECT LINE */}
+        <p className="auth-footer">
+          Already have an account?{" "}
+          <a href="/login">Login</a>
+        </p>
+
+
       </form>
 
       {/* ✅ GOOGLE SIGNUP */}
@@ -203,7 +210,7 @@ const Signup = () => {
       )}
 
       {popup.show && <Notification type={popup.type} message={popup.message} />}
-      
+
     </div>
   );
 };
