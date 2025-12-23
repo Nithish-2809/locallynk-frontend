@@ -151,3 +151,32 @@
     font-size: 18px;
   }
 }
+
+.product-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: capitalize;
+}
+
+.product-status.available {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.product-status.sold {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.sold-card {
+  opacity: 0.75;
+}
+
+.view-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}

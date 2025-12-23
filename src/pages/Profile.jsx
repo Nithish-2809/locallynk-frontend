@@ -218,7 +218,13 @@ function Profile() {
               My Products
             </button>
 
-            <button className="side-btn secondary">My Orders</button>
+            <button
+              className="side-btn secondary"
+              onClick={() => navigate("/orders")}
+            >
+              My Orders
+            </button>
+
           </div>
         </div>
 

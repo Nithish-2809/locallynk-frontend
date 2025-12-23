@@ -17,6 +17,15 @@ import Chatting from "./pages/Chatting";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
+// ✅ STRIPE IMPORTS
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+// ✅ STRIPE INSTANCE (ONCE)
+const stripePromise = loadStripe(
+  "pk_test_51ShbheFLKTNMgEtqgsHRo1TtL86JUjAXbrJbgEsXyFaXhMHDSZ70Odw5gL07k3XfBb12xGLiYbQwfO2gmSZ4KkQ900HgwOJOL1"
+);
+
 function App() {
   return (
     <div>
@@ -28,7 +37,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/product/:id" element={<ProductInfo />} />
-        <Route path="/seller-products/:userId" element={<SellerProducts />} />
+        <Route
+          path="/seller-products/:userId"
+          element={<SellerProducts />}
+        />
 
         {/* 🔒 PROTECTED ROUTES */}
         <Route element={<ProtectedRoute />}>
@@ -37,8 +49,20 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/chats" element={<Chat />} />
-          <Route path="/chat/:userId/:productId" element={<Chatting />} />
-          <Route path="/payment-success" element={<Payment />} />
+          <Route
+            path="/chat/:userId/:productId"
+            element={<Chatting />}
+          />
+
+          {/* ✅ STRIPE PAYMENT ROUTE */}
+          <Route
+            path="/payment/:orderId"
+            element={
+              <Elements stripe={stripePromise}>
+                <Payment />
+              </Elements>
+            }
+          />
         </Route>
       </Routes>
     </div>

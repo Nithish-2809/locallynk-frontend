@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import Loader from "../components/Loader"; // ✅ ADD
+import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 import "../Styles/Home.css";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* ---------------------------------
-     READ QUERY PARAMS
-     --------------------------------- */
   const { search } = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(search);
 
   const searchQuery = params.get("search");
@@ -19,32 +17,31 @@ function Home() {
   const lat = params.get("lat");
   const lng = params.get("lng");
 
-  /* ---------------------------------
+  /* ===============================
      FETCH PRODUCTS
-     --------------------------------- */
+     =============================== */
   const fetchProducts = async () => {
     try {
       setLoading(true);
 
       let url = "https://locallynk.onrender.com/product";
 
-      // 🔍 Search by product name
+      // 🔍 SEARCH
       if (searchQuery) {
         url = `https://locallynk.onrender.com/product/search?name=${searchQuery}`;
       }
 
-      // 📍 Nearby products (highest priority)
+      // 📍 NEARBY (highest priority)
       if (nearby && lat && lng) {
         url = `https://locallynk.onrender.com/product/near?lat=${lat}&lng=${lng}`;
       }
 
       const res = await axios.get(url);
       setProducts(res.data.products || []);
-
     } catch (error) {
       console.error("Failed to load products:", error);
     } finally {
-      setLoading(false); // ✅ ALWAYS stop loader
+      setLoading(false);
     }
   };
 
@@ -52,27 +49,19 @@ function Home() {
     fetchProducts();
   }, [searchQuery, nearby, lat, lng]);
 
-  /* ---------------------------------
+  /* ===============================
      UI
-     --------------------------------- */
+     =============================== */
   return (
     <>
-      {/* ✅ GLOBAL LOADER */}
       {loading && <Loader text="Loading products..." />}
 
       <div className="home-wrapper">
-
-        {/* TITLE BASED ON MODE */}
-        {nearby && (
-          <h2 className="home-title">
-            Nearby Products 📍
-          </h2>
-        )}
+        {/* TITLE */}
+        {nearby && <h2 className="home-title">Nearby Products 📍</h2>}
 
         {!nearby && !searchQuery && (
-          <h2 className="home-title">
-            Latest Products
-          </h2>
+          <h2 className="home-title">Latest Products</h2>
         )}
 
         {searchQuery && (
@@ -81,14 +70,18 @@ function Home() {
           </h2>
         )}
 
-        {/* STATES */}
+        {/* CONTENT */}
         {!loading && products.length === 0 ? (
           <p className="no-products">No products found</p>
         ) : (
           <div className="product-grid">
             {products.map((product) => (
-              <div className="product-card" key={product._id}>
-
+              <div
+                className={`product-card ${
+                  product.status === "sold" ? "sold-card" : ""
+                }`}
+                key={product._id}
+              >
                 {/* IMAGE */}
                 <img
                   src={product.image}
@@ -106,6 +99,17 @@ function Home() {
                     ₹ {product.price}
                   </p>
 
+                  {/* STATUS */}
+                  <span
+                    className={`product-status ${
+                      product.status === "sold"
+                        ? "sold"
+                        : "available"
+                    }`}
+                  >
+                    {product.status}
+                  </span>
+
                   <p className="product-category">
                     {product.category}
                   </p>
@@ -117,18 +121,20 @@ function Home() {
                   {/* SELLER */}
                   {product.Seller && (
                     <p className="product-seller">
-                      Seller: <span>{product.Seller.userName}</span>
+                      Seller:{" "}
+                      <span>{product.Seller.userName}</span>
                     </p>
                   )}
 
                   {/* LOCATION */}
                   {product.location?.city && (
                     <p className="product-location">
-                      📍 {product.location.city}, {product.location.address}
+                      📍 {product.location.city},{" "}
+                      {product.location.address}
                     </p>
                   )}
 
-                  {/* DISTANCE (NEARBY MODE ONLY) */}
+                  {/* DISTANCE */}
                   {product.distanceKm && (
                     <p className="product-distance">
                       🛣️ {product.distanceKm} away
@@ -136,16 +142,19 @@ function Home() {
                   )}
                 </div>
 
-                {/* VIEW BUTTON */}
+                {/* ACTION BUTTON */}
                 <button
                   className="view-btn"
+                  disabled={product.status === "sold"}
                   onClick={() =>
-                    window.location.href = `/product/${product._id}`
+                    product.status !== "sold" &&
+                    navigate(`/product/${product._id}`)
                   }
                 >
-                  View Details
+                  {product.status === "sold"
+                    ? "Sold Out"
+                    : "View Details"}
                 </button>
-
               </div>
             ))}
           </div>

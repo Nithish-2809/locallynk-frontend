@@ -19,6 +19,39 @@ function ProductInfo() {
     setTimeout(() => setPopup(null), 3000);
   };
 
+    const handleBuyNow = async () => {
+      const token = localStorage.getItem("token");
+
+      // 1. Not logged in
+      if (!token) {
+        showPopup("error", "Please login to buy this product");
+        setTimeout(() => navigate("/login"), 1500);
+        return;
+      }
+
+      try {
+        // 2. Create order
+        const res = await axios.post(
+          `https://locallynk.onrender.com/order/buy/${product._id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // 3. Navigate to payment page
+        navigate(`/payment/${res.data.order._id}`);
+      } catch (err) {
+        showPopup(
+          "error",
+          err.response?.data?.msg || "Failed to place order"
+        );
+      }
+    };
+
+
   /* ---------- fetch product ---------- */
   const fetchProduct = async () => {
     try {
@@ -95,11 +128,13 @@ function ProductInfo() {
             )}
 
             <button
-              className="seller-products-btn"
-              style={{ marginTop: "10px" }}
-            >
-              Buy Now
+                className="seller-products-btn"
+                style={{ marginTop: "10px" }}
+                onClick={handleBuyNow}
+              >
+                Buy Now
             </button>
+
 
             {/* SELLER CARD */}
             <div className="seller-card">
