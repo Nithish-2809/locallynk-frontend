@@ -16,16 +16,18 @@ export default function Nav() {
     window.location.reload();
   };
 
+  // 🔍 SEARCH → HOME PAGE
   const handleSearch = () => {
     if (!searchText.trim()) return;
-    navigate(`/?search=${encodeURIComponent(searchText)}`);
+    navigate(`/home?search=${encodeURIComponent(searchText)}`);
   };
 
+  // 📍 NEARBY → HOME PAGE
   const handleNearby = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        navigate(`/?near=true&lat=${latitude}&lng=${longitude}`);
+        navigate(`/home?near=true&lat=${latitude}&lng=${longitude}`);
       },
       () => alert("Please allow location access to search nearby products")
     );
@@ -33,9 +35,9 @@ export default function Nav() {
 
   return (
     <nav className="nav">
-      {/* LOGO */}
+      {/* LOGO → LANDING */}
       <div className="nav-left">
-        <Link to="/" className="nav-logo">
+        <Link to="/home" className="nav-logo">
           <img src="/Logo.png" alt="LocalLynk" className="nav-logo-img" />
           <span className="nav-logo-text">
             Local<span className="logo-accent">Lynk</span>
@@ -71,16 +73,26 @@ export default function Nav() {
       <div className="nav-right">
         {!isLoggedIn && (
           <>
-            <NavLink to="/login" className="nav-link">Login</NavLink>
-            <NavLink to="/signup" className="nav-link">Signup</NavLink>
+            <NavLink to="/login" className="nav-link">
+              Login
+            </NavLink>
+            <NavLink to="/signup" className="nav-link">
+              Signup
+            </NavLink>
           </>
         )}
 
         {isLoggedIn && (
           <>
-            <NavLink to="/sell" className="nav-link">Sell</NavLink>
-            <NavLink to="/chats" className="nav-link">Chats</NavLink>
-            <NavLink to="/profile" className="nav-link">Profile</NavLink>
+            <NavLink to="/sell" className="nav-link">
+              Sell
+            </NavLink>
+            <NavLink to="/chats" className="nav-link">
+              Chats
+            </NavLink>
+            <NavLink to="/profile" className="nav-link">
+              Profile
+            </NavLink>
             <span className="nav-link logout-btn" onClick={handleLogout}>
               Logout
             </span>

@@ -1,0 +1,108 @@
+.landing-wrapper {
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
+}
+
+/* HERO */
+.hero {
+  padding: 120px 20px 80px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.hero h1 span {
+  color: limegreen;
+}
+
+.hero p {
+  margin-top: 16px;
+  font-size: 18px;
+  color: #475569;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.hero-buttons {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.primary-btn {
+  background: limegreen;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #17a110;
+}
+
+.secondary-btn {
+  background: white;
+  border: 2px solid limegreen;
+  color: limegreen;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 60px 40px;
+}
+
+.feature-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+/* STEPS */
+.steps {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.steps-grid {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.steps-grid div span {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: limegreen;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* CTA */
+.cta {
+  padding: 80px 20px;
+  text-align: center;
+}

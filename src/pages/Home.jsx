@@ -18,6 +18,15 @@ function Home() {
   const lng = params.get("lng");
 
   /* ===============================
+     GET LOGGED IN USER ID (SAFE)
+     =============================== */
+  const storedUser = JSON.parse(
+    localStorage.getItem("user") || "{}"
+  );
+  const loggedInUserId =
+    storedUser?._id || storedUser?.id || null;
+
+  /* ===============================
      FETCH PRODUCTS
      =============================== */
   const fetchProducts = async () => {
@@ -26,18 +35,26 @@ function Home() {
 
       let url = "https://locallynk.onrender.com/product";
 
-      // 🔍 SEARCH
       if (searchQuery) {
         url = `https://locallynk.onrender.com/product/search?name=${searchQuery}`;
       }
 
-      // 📍 NEARBY (highest priority)
       if (nearby && lat && lng) {
         url = `https://locallynk.onrender.com/product/near?lat=${lat}&lng=${lng}`;
       }
 
       const res = await axios.get(url);
-      setProducts(res.data.products || []);
+      const allProducts = res.data.products || [];
+
+      // 🚫 FILTER OUT MY OWN PRODUCTS
+      const filteredProducts = loggedInUserId
+        ? allProducts.filter(
+            (product) =>
+              product.Seller?._id !== loggedInUserId
+          )
+        : allProducts;
+
+      setProducts(filteredProducts);
     } catch (error) {
       console.error("Failed to load products:", error);
     } finally {
@@ -78,7 +95,9 @@ function Home() {
             {products.map((product) => (
               <div
                 className={`product-card ${
-                  product.status === "sold" ? "sold-card" : ""
+                  product.status === "sold"
+                    ? "sold-card"
+                    : ""
                 }`}
                 key={product._id}
               >

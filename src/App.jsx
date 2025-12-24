@@ -1,7 +1,8 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Nav from "./components/Nav";
 import "./App.css";
 
+import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -17,23 +18,30 @@ import Chatting from "./pages/Chatting";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
-// ✅ STRIPE IMPORTS
+// ✅ STRIPE (FROM ENV)
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-// ✅ STRIPE INSTANCE (ONCE)
 const stripePromise = loadStripe(
-  "pk_test_51ShbheFLKTNMgEtqgsHRo1TtL86JUjAXbrJbgEsXyFaXhMHDSZ70Odw5gL07k3XfBb12xGLiYbQwfO2gmSZ4KkQ900HgwOJOL1"
+  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 );
 
 function App() {
+  const location = useLocation();
+
+  // ❌ Hide navbar ONLY on landing page
+  const hideNav = location.pathname === "/";
+
   return (
     <div>
-      <Nav />
+      {!hideNav && <Nav />}
 
       <Routes>
-        {/* 🌍 PUBLIC ROUTES */}
-        <Route path="/" element={<Home />} />
+        {/* 🌟 LANDING */}
+        <Route path="/" element={<Landing />} />
+
+        {/* 🌍 PUBLIC */}
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/product/:id" element={<ProductInfo />} />
@@ -42,7 +50,7 @@ function App() {
           element={<SellerProducts />}
         />
 
-        {/* 🔒 PROTECTED ROUTES */}
+        {/* 🔒 PROTECTED */}
         <Route element={<ProtectedRoute />}>
           <Route path="/sell" element={<Sell />} />
           <Route path="/my-products" element={<MyProducts />} />
@@ -54,7 +62,6 @@ function App() {
             element={<Chatting />}
           />
 
-          {/* ✅ STRIPE PAYMENT ROUTE */}
           <Route
             path="/payment/:orderId"
             element={

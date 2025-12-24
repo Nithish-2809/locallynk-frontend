@@ -47,7 +47,7 @@ const Login = () => {
 
       showPopup("success", "Login successful ✅");
 
-      setTimeout(() => window.location.href = "/", 1500);
+      setTimeout(() => window.location.href = "/home", 1500);
 
     } catch (err) {
       showPopup("error", err.response?.data?.msg || "Login failed!");
@@ -74,7 +74,7 @@ const Login = () => {
 
       showPopup("success", "Google Login successful ✅");
 
-      setTimeout(() => window.location.href = "/", 1500);
+      setTimeout(() => window.location.href = "/home", 1500);
 
     } catch (_) {
       showPopup("error", "Google account not found. Please signup first!");

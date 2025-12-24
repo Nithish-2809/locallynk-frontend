@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import Notification from "../components/Notification";
+import Loader from "../components/Loader"; // ✅ REUSED GLOBAL LOADER
 import "../Styles/Chatting.css";
 
 const socket = io("https://locallynk.onrender.com", {
@@ -11,7 +12,8 @@ const socket = io("https://locallynk.onrender.com", {
 
 const Chatting = () => {
   const { userId, productId } = useParams();
-  const { state } = useLocation(); // ⭐ receive seller data
+  const { state } = useLocation();
+
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const myId = storedUser?._id || storedUser?.id;
 
@@ -19,6 +21,7 @@ const Chatting = () => {
   const [text, setText] = useState("");
   const [receiver, setReceiver] = useState(state?.receiver || null);
   const [popup, setPopup] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ LOADER STATE
 
   const bottomRef = useRef(null);
 
@@ -58,6 +61,8 @@ const Chatting = () => {
   /* ---------- fetch chat history ---------- */
   const fetchChat = async () => {
     try {
+      setLoading(true); // ✅ START LOADER
+
       const res = await axios.get(
         `https://locallynk.onrender.com/message/history/${userId}?productId=${productId}`,
         {
@@ -69,7 +74,7 @@ const Chatting = () => {
 
       setMessages(res.data.chat || []);
 
-      // ✅ derive receiver from messages if available
+      // derive receiver if not passed via state
       if (res.data.chat?.length && !receiver) {
         const msg = res.data.chat[0];
         setReceiver(
@@ -78,6 +83,8 @@ const Chatting = () => {
       }
     } catch {
       showPopup("error", "Failed to load chat");
+    } finally {
+      setLoading(false); // ✅ STOP LOADER
     }
   };
 
@@ -168,49 +175,55 @@ const Chatting = () => {
             alt="User"
             className="chat-avatar"
           />
-          <div className="chat-user-info">
-            <h3>{receiver?.userName || "Chat"}</h3>
-          </div>
+          <h3>{receiver?.userName || "Chat"}</h3>
         </div>
       </div>
 
       {/* BODY */}
       <div className="chat-body">
-        {messages.map((msg, i) => {
-          const msgDate = formatDate(msg.createdAt);
-          const showDate = msgDate !== lastDate;
-          lastDate = msgDate;
+        {loading ? (
+          <div className="chat-loader">
+            <Loader /> {/* ✅ SAME LOADER AS OTHER PAGES */}
+          </div>
+        ) : (
+          <>
+            {messages.map((msg, i) => {
+              const msgDate = formatDate(msg.createdAt);
+              const showDate = msgDate !== lastDate;
+              lastDate = msgDate;
 
-          const isOwn =
-            msg.sender === myId || msg.sender?._id === myId;
+              const isOwn =
+                msg.sender === myId || msg.sender?._id === myId;
 
-          return (
-            <React.Fragment key={i}>
-              {showDate && (
-                <div className="date-separator">{msgDate}</div>
-              )}
-
-              <div className={`chat-msg ${isOwn ? "own" : ""}`}>
-                {msg.message}
-
-                <span className="chat-meta">
-                  <span className="chat-time">
-                    {formatTime(msg.createdAt)}
-                  </span>
-
-                  {isOwn && (
-                    <span
-                      className={`chat-tick ${msg.isRead ? "read" : ""}`}
-                    >
-                      ✔✔
-                    </span>
+              return (
+                <React.Fragment key={i}>
+                  {showDate && (
+                    <div className="date-separator">{msgDate}</div>
                   )}
-                </span>
-              </div>
-            </React.Fragment>
-          );
-        })}
-        <div ref={bottomRef} />
+
+                  <div className={`chat-msg ${isOwn ? "own" : ""}`}>
+                    {msg.message}
+
+                    <span className="chat-meta">
+                      <span className="chat-time">
+                        {formatTime(msg.createdAt)}
+                      </span>
+
+                      {isOwn && (
+                        <span
+                          className={`chat-tick ${msg.isRead ? "read" : ""}`}
+                        >
+                          ✔✔
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </React.Fragment>
+              );
+            })}
+            <div ref={bottomRef} />
+          </>
+        )}
       </div>
 
       {/* INPUT */}

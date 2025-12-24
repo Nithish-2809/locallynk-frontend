@@ -4,6 +4,8 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Notification from "../components/Notification";
 
+
+
 import {
   CardElement,
   useStripe,
@@ -128,7 +130,7 @@ function Payment() {
         "success",
         "Order placed! Delivering in 3 days 🚚"
       );
-      setTimeout(() => navigate("/"), 2500);
+      setTimeout(() => navigate("/home"), 2500);
     } catch (err) {
       showPopup(
         "error",
