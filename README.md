@@ -1,16 +1,55 @@
-# React + Vite
+# 🛍️ LocalLynk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**LocalLynk** is a full-stack local marketplace web application that enables users to buy and sell products within their nearby area. It emphasizes location-aware discovery, secure payments, and real-time interaction between buyers and sellers.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- 🔐 User authentication with JWT
+- 📍 **Nearby products discovery using geolocation**
+- 🔍 Product search by name and category
+- 🛒 Buy & sell products with order management
+- 💬 Real-time chat between buyers and sellers
+- 💳 Secure Stripe payment integration
+- 👤 User profile management
+- 📦 Product availability status (Available / Sold)
+- 🗺️ Distance-based product listing (km-wise)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧑‍💻 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React
+- React Router
+- Axios
+- Stripe.js
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- JWT Authentication
+- **Geospatial queries (MongoDB 2dsphere)**
+- Stripe API
+
+---
+
+## 🔄 Application Flow
+
+1. Users sign up or log in
+2. Sellers list products with location details
+3. Buyers browse products or discover **nearby items based on location**
+4. Buyers place orders and complete payment via Stripe
+5. Orders are verified and products are marked as sold
+6. Buyers and sellers can chat in real time
+
+---
+
+## 🛠️ Setup Instructions
+
+### Clone the repository
+```bash
+git clone https://github.com/your-username/locallynk.git
+cd locallynk
