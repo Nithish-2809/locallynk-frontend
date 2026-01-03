@@ -1,22 +1,21 @@
 /* ===== PAGE CENTERING ===== */
 .signup-container {
-  min-height: calc(100vh - 120px); /* accounts for navbar height + margin */
+  min-height: 100svh; /* better than 100vh on mobile */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  padding-top: 80px; /* clear space below navbar */
-  padding-bottom: 40px;
+  padding: 90px 16px 40px; /* responsive padding */
 
   background: #f7f8fa;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-
 /* ===== MAIN FORM CARD ===== */
 .signup-box {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
   background: white;
   padding: 26px;
   border-radius: 18px 18px 0 0;
@@ -34,7 +33,7 @@
   grid-column: span 2;
   text-align: center;
   color: #16a34a;
-  font-size: 24px;
+  font-size: clamp(20px, 5vw, 24px);
   font-weight: 700;
   margin-bottom: 8px;
 }
@@ -61,7 +60,7 @@
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
 
-/* ===== SIGNUP / LOGIN BUTTON ===== */
+/* ===== SIGNUP BUTTON ===== */
 .signup-btn {
   grid-column: span 2;
   background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -91,11 +90,12 @@
 
 /* ===== GOOGLE SECTION ===== */
 .google-wrapper {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
   text-align: center;
   padding: 18px;
   background: white;
-  max-width: 420px;
+
   border-radius: 0 0 18px 18px;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
   margin-top: -12px;
@@ -126,21 +126,38 @@
   text-decoration: underline;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width: 500px) {
-  .signup-box,
-  .google-wrapper {
-    width: 95%;
+/* ============================= */
+/* ===== TABLETS (≤768px) ===== */
+/* ============================= */
+@media (max-width: 768px) {
+  .signup-box {
+    padding: 22px;
+    gap: 12px;
+  }
+}
+
+/* ============================= */
+/* ===== MOBILES (≤480px) ===== */
+/* ============================= */
+@media (max-width: 480px) {
+  .signup-container {
+    padding-top: 80px;
   }
 
   .signup-box {
     grid-template-columns: 1fr;
-    padding: 22px;
+    padding: 20px;
+    border-radius: 16px 16px 0 0;
   }
 
   .signup-title,
   .signup-btn,
   .auth-footer {
     grid-column: span 1;
+  }
+
+  .signup-btn {
+    font-size: 15px;
+    padding: 13px;
   }
 }
