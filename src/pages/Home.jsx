@@ -139,7 +139,7 @@ function Home() {
 
                   {/* SELLER */}
                   {product.Seller && (
-                    <p className="product-seller">
+                    <p className="product-seller" style={{color : "white"}}>
                       Seller:{" "}
                       <span>{product.Seller.userName}</span>
                     </p>

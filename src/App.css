@@ -1,121 +1,146 @@
-/* ==== GLOBAL RESET ==== */
+/* =====================
+   GLOBAL RESET
+   ===================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
+/* =====================
+   BODY
+   ===================== */
 body {
   font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-  color: #333;
+  color: #e5e7eb;
+  background: #020617;
 }
 
-
-/* ==== GLOBAL PAGE BACKGROUND ==== */
+/* =====================
+   ROOT BACKGROUND
+   ===================== */
 #root {
   min-height: 100vh;
-  background: linear-gradient(145deg, #fdfbfb, #ebedee);
+  background: #020617;
 }
 
-
-/* ==== GENERIC PAGE WRAPPER ==== */
+/* =====================
+   GENERIC PAGE WRAPPER
+   ===================== */
 .page-wrapper {
-  min-height: calc(100vh - 70px); /* below navbar */
+  min-height: calc(100vh - 70px);
   padding: 40px 20px;
 }
 
-
-/* ==== COMMON CARD STYLE ==== */
+/* =====================
+   COMMON CARD (SAFE BASE)
+   ===================== */
 .card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.7);
   padding: 20px;
 }
 
-
-/* ==== FORM BASE STYLE ==== */
+/* =====================
+   FORM BASE STYLE
+   ===================== */
 input,
 textarea,
 select {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px;
+  border: 2px solid #334155;
+  border-radius: 8px;
+  padding: 10px 12px;
   outline: none;
   font-size: 14px;
-  background: #fbfbfb;
-  transition: 0.25s ease;
+
+  background: #020617;
+  color: #f8fafc;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: limegreen;
-  box-shadow: 0 0 0 2px rgba(50,205,50,0.15);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
 }
 
-
-/* ==== GLOBAL BUTTONS ==== */
+/* =====================
+   GLOBAL BUTTONS
+   ===================== */
 button {
   border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 15px;
-  transition: 0.2s ease-in-out;
+  font-weight: 600;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
 }
 
-
-/* ==== SUCCESS BUTTON ==== */
+/* =====================
+   PRIMARY BUTTON
+   ===================== */
 .btn-primary {
-  background: limegreen;
-  color: white;
+  background: #22c55e;
+  color: #020617;
 }
 
 .btn-primary:hover {
-  background: #24a024;
+  background: #16a34a;
 }
 
-
-/* ==== SECONDARY BUTTON ==== */
+/* =====================
+   SECONDARY BUTTON
+   ===================== */
 .btn-secondary {
-  background: #e2e6f2;
-  color: #333;
+  background: #334155;
+  color: #f8fafc;
 }
 
 .btn-secondary:hover {
-  background: #cfd6ec;
+  background: #475569;
 }
 
-
-/* ==== LINKS ==== */
+/* =====================
+   LINKS
+   ===================== */
 a {
   text-decoration: none;
-  color: limegreen;
+  color: #22c55e;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-
-/* ==== NAVBAR LOOK (OPTIONAL IF YOU HAVE ONE) ==== */
+/* =====================
+   NAVBAR BASE (OPTIONAL)
+   ===================== */
 .navbar {
   height: 70px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
   display: flex;
   align-items: center;
   padding: 0 20px;
   justify-content: space-between;
 }
 
-
-/* ==== FORM PAGES CENTERING ==== */
+/* =====================
+   FORM PAGES CENTERING
+   ===================== */
 .center-page {
   display: flex;
   justify-content: center;
@@ -123,31 +148,35 @@ a:hover {
   margin-top: 30px;
 }
 
-
-/* ==== GOOGLE BUTTON CENTER ==== */
+/* =====================
+   GOOGLE BUTTON WRAPPER
+   ===================== */
 .google-wrapper {
   margin-top: 14px;
 }
 
-
-/* ==== SOFT CONTAINERS ==== */
+/* =====================
+   SOFT CONTAINERS
+   ===================== */
 .soft-bg {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
+  background: #020617;
+  border: 1px solid #1e293b;
 }
 
-
-/* ==== TEXT COLOR HARMONY ==== */
+/* =====================
+   TEXT HARMONY
+   ===================== */
 h1, h2, h3 {
-  color: #2a2a2a;
+  color: #f8fafc;
 }
 
 small {
-  color: #666;
+  color: #94a3b8;
 }
 
-
-/* ==== MOBILE ==== */
+/* =====================
+   MOBILE
+   ===================== */
 @media (max-width: 600px) {
   .page-wrapper {
     padding: 20px 12px;

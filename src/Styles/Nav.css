@@ -1,25 +1,20 @@
-/* ========== NAVBAR ========== */
+/* ================= NAVBAR ================= */
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: #020617; /* solid dark for clarity */
+  border: 1px solid #1e293b;
   border-radius: 18px;
 
   padding: 14px 22px;
   margin: 20px;
 
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.25s ease;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
 }
 
-.nav:hover {
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-}
-
-/* ========== LEFT (LOGO) ========== */
+/* ================= LEFT (LOGO) ================= */
 .nav-left {
   display: flex;
   align-items: center;
@@ -39,15 +34,14 @@
 .nav-logo-text {
   font-size: 26px;
   font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.5px;
+  color: #f8fafc;
 }
 
 .logo-accent {
   color: #22c55e;
 }
 
-/* ========== CENTER (SEARCH + NEARBY) ========== */
+/* ================= CENTER ================= */
 .nav-center {
   flex: 1;
   display: flex;
@@ -56,25 +50,26 @@
   gap: 14px;
 }
 
+/* ================= SEARCH BOX ================= */
 .search-box {
   display: flex;
   align-items: center;
+  gap: 12px;
 
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: #020617;
+  border: 2px solid #334155; /* visible border */
   border-radius: 14px;
 
   padding: 10px 16px;
   width: 520px;
   max-width: 100%;
-  gap: 12px;
 
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-box:focus-within {
   border-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
 }
 
 .search-input {
@@ -83,28 +78,28 @@
   outline: none;
   background: transparent;
   font-size: 15px;
-  color: #0f172a;
+  color: #f8fafc;
 }
 
 .search-input::placeholder {
   color: #94a3b8;
 }
 
-/* Icon buttons */
+/* ICON BUTTONS */
 .icon-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #64748b;
+  color: #e5e7eb;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .icon-btn:hover {
   color: #22c55e;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
-/* ========== NEARBY BUTTON ========== */
+/* ================= NEARBY BUTTON ================= */
 .nearby-btn-icon {
   min-width: 44px;
   height: 44px;
@@ -113,9 +108,9 @@
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px solid #22c55e;
+  background: transparent;
 
   color: #22c55e;
   cursor: pointer;
@@ -124,55 +119,55 @@
 
 .nearby-btn-icon:hover {
   background: #22c55e;
-  color: white;
-  border-color: #22c55e;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+  color: #020617;
+  box-shadow: 0 6px 18px rgba(34,197,94,0.4);
 }
 
-/* ========== RIGHT LINKS ========== */
+/* ================= RIGHT LINKS ================= */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .nav-link {
   text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
+
   padding: 8px 14px;
   border-radius: 12px;
-  color: #334155;
+
+  color: #f8fafc;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover {
-  background: #f1f5f9;
+  background: #1e293b;
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+  background: #22c55e;
+  color: #020617;
+  box-shadow: 0 6px 18px rgba(34,197,94,0.4);
 }
 
+/* LOGOUT */
 .logout-btn {
-  cursor: pointer;
-  color: #dc2626 !important;
+  color: #ef4444 !important;
 }
 
-/* ========== RESPONSIVE ========== */
+.logout-btn:hover {
+  background: rgba(239,68,68,0.15);
+}
 
-/* Tablets */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 992px) {
   .search-box {
     width: 420px;
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
@@ -192,14 +187,12 @@
   .nearby-btn-icon {
     width: 100%;
     height: auto;
-    border-radius: 12px;
     padding: 12px;
-    justify-content: center;
   }
 
   .nearby-btn-icon::after {
     content: " Search nearby products";
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .nav-right {
@@ -208,7 +201,6 @@
   }
 }
 
-/* Small phones */
 @media (max-width: 480px) {
   .nav-logo-text {
     font-size: 22px;

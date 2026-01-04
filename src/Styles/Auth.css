@@ -1,26 +1,42 @@
-/* ===== PAGE CENTERING ===== */
+/* ================= PAGE CENTERING ================= */
 .signup-container {
-  min-height: 100svh; /* better than 100vh on mobile */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  padding: 90px 16px 40px; /* responsive padding */
+  padding: 90px 16px 40px;
 
-  background: #f7f8fa;
+  background:
+    radial-gradient(circle at top left, rgba(34,197,94,0.25), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(56,189,248,0.25), transparent 45%),
+    linear-gradient(135deg, #020617, #020617);
+
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #e5e7eb;
 }
 
-/* ===== MAIN FORM CARD ===== */
+/* ================= MAIN FORM CARD ================= */
 .signup-box {
   width: 100%;
   max-width: 420px;
-  background: white;
-  padding: 26px;
-  border-radius: 18px 18px 0 0;
 
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+
+  backdrop-filter: blur(16px);
+  padding: 28px;
+  border-radius: 22px 22px 0 0;
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -28,57 +44,73 @@
   box-sizing: border-box;
 }
 
-/* ===== TITLE ===== */
+/* ================= TITLE ================= */
 .signup-title {
   grid-column: span 2;
   text-align: center;
-  color: #16a34a;
-  font-size: clamp(20px, 5vw, 24px);
-  font-weight: 700;
-  margin-bottom: 8px;
+
+  font-size: clamp(22px, 5vw, 26px);
+  font-weight: 800;
+
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 10px;
 }
 
-/* ===== INPUT FIELDS ===== */
+/* ================= INPUT FIELDS ================= */
 .signup-box input {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d1d5db;
+  padding: 13px 15px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f8fafc;
+
   outline: none;
   font-size: 14px;
   box-sizing: border-box;
 
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .signup-box input::placeholder {
-  color: #9ca3af;
+  color: #94a3b8;
 }
 
 .signup-box input:focus {
   border-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
 }
 
-/* ===== SIGNUP BUTTON ===== */
+/* ================= SIGNUP BUTTON ================= */
 .signup-btn {
   grid-column: span 2;
+
   background: linear-gradient(135deg, #22c55e, #16a34a);
   border: none;
-  color: white;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-top: 6px;
+  color: #020617;
 
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+
+  box-shadow:
+    0 12px 30px rgba(34,197,94,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  transition: all 0.25s ease;
 }
 
 .signup-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(34, 197, 94, 0.35);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(34,197,94,0.55);
 }
 
 .signup-btn:disabled {
@@ -88,37 +120,48 @@
   box-shadow: none;
 }
 
-/* ===== GOOGLE SECTION ===== */
+/* ================= GOOGLE SECTION ================= */
 .google-wrapper {
   width: 100%;
   max-width: 420px;
   text-align: center;
-  padding: 18px;
-  background: white;
 
-  border-radius: 0 0 18px 18px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
-  margin-top: -12px;
+  padding: 20px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.02)
+  );
+
+  backdrop-filter: blur(16px);
+
+  border-radius: 0 0 22px 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-top: none;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+  margin-top: -14px;
 }
 
 .google-wrapper p {
-  margin: 6px 0;
+  margin: 8px 0;
   font-size: 14px;
-  color: #6b7280;
+  color: #94a3b8;
 }
 
-/* ===== AUTH FOOTER ===== */
+/* ================= AUTH FOOTER ================= */
 .auth-footer {
   grid-column: span 2;
   text-align: center;
   font-size: 14px;
-  margin-top: 10px;
-  color: #4b5563;
+  margin-top: 12px;
+  color: #94a3b8;
 }
 
 .auth-footer a {
   color: #22c55e;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -126,19 +169,15 @@
   text-decoration: underline;
 }
 
-/* ============================= */
-/* ===== TABLETS (≤768px) ===== */
-/* ============================= */
+/* ================= TABLETS ================= */
 @media (max-width: 768px) {
   .signup-box {
-    padding: 22px;
+    padding: 24px;
     gap: 12px;
   }
 }
 
-/* ============================= */
-/* ===== MOBILES (≤480px) ===== */
-/* ============================= */
+/* ================= MOBILES ================= */
 @media (max-width: 480px) {
   .signup-container {
     padding-top: 80px;
@@ -146,8 +185,8 @@
 
   .signup-box {
     grid-template-columns: 1fr;
-    padding: 20px;
-    border-radius: 16px 16px 0 0;
+    padding: 22px;
+    border-radius: 18px 18px 0 0;
   }
 
   .signup-title,
@@ -158,6 +197,6 @@
 
   .signup-btn {
     font-size: 15px;
-    padding: 13px;
+    padding: 14px;
   }
 }

@@ -5,13 +5,14 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
+  background: #020617;
 }
 
 /* TITLE */
 .chatlist-title {
   font-size: 22px;
   font-weight: 700;
-  color: #1e293b;
+  color: #f8fafc;
   margin-bottom: 18px;
 }
 
@@ -24,14 +25,14 @@
   gap: 12px;
 
   padding: 14px 12px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #1e293b;
   cursor: pointer;
 
   transition: background 0.2s ease;
 }
 
 .chatlist-item:hover {
-  background: #f8fafc;
+  background: #020617;
 }
 
 /* =========================
@@ -44,7 +45,7 @@
   object-fit: cover;
   flex-shrink: 0;
 
-  border: 1px solid #e2e8f0;
+  border: 1px solid #1e293b;
 }
 
 /* =========================
@@ -55,13 +56,13 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 0; /* important for ellipsis */
+  min-width: 0;
 }
 
 .chatlist-name {
   font-size: 15px;
   font-weight: 600;
-  color: #1e293b;
+  color: #f8fafc;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -69,7 +70,7 @@
 
 .chatlist-lastmsg {
   font-size: 14px;
-  color: #64748b;
+  color: #94a3b8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -90,12 +91,12 @@
 .chatlist-product {
   font-size: 12px;
   font-weight: 600;
-  color: #3b82f6;
+  color: #38bdf8;
   white-space: nowrap;
 }
 
 /* =========================
-   UNREAD BADGE (PRO)
+   UNREAD BADGE
    ========================= */
 .unread-badge {
   min-width: 20px;
@@ -104,11 +105,11 @@
   padding: 0 6px;
   border-radius: 999px;
 
-  background: #22c55e; /* lime green */
-  color: #ffffff;
+  background: #22c55e;
+  color: #020617;
 
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 20px;
   text-align: center;
 
@@ -124,7 +125,7 @@
   text-align: center;
   margin-top: 60px;
   font-size: 16px;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 /* =========================
