@@ -147,6 +147,25 @@ function Payment() {
 
   const { product, seller, amount } = order;
 
+  const cardElementOptions = {
+  style: {
+    base: {
+      color: "#f8fafc", // text color (visible now)
+      fontSize: "16px",
+      fontFamily: "Segoe UI, Tahoma, Arial, sans-serif",
+      "::placeholder": {
+        color: "#94a3b8", // placeholder text
+      },
+      iconColor: "#22c55e", // card brand icon
+    },
+    invalid: {
+      color: "#ef4444",
+      iconColor: "#ef4444",
+    },
+  },
+};
+
+
   return (
     <>
       {loading && <Loader text="Processing payment..." />}
@@ -180,7 +199,7 @@ function Payment() {
 
           {/* 💳 CARD */}
           <div className="card-element-wrapper">
-            <CardElement />
+            <CardElement options={cardElementOptions} />
           </div>
 
           <button
