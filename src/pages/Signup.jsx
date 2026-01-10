@@ -6,14 +6,16 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
 const Signup = () => {
-
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [googleData, setGoogleData] = useState(null);
 
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
-    setTimeout(() => setPopup({ show: false, type: "", message: "" }), 10000);
+    setTimeout(
+      () => setPopup({ show: false, type: "", message: "" }),
+      10000
+    );
   };
 
   const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ const Signup = () => {
     longitude: "",
   });
 
-  // 📍 GPS Auto-detection (FUNCTIONALITY KEPT)
+  /* ================= GEO LOCATION ================= */
   useEffect(() => {
     if (!navigator.geolocation) {
       showPopup("error", "Geolocation not supported!");
@@ -46,16 +48,30 @@ const Signup = () => {
     );
   }, []);
 
-  // ✅ INPUT HANDLING
+  /* ================= INPUT HANDLER ================= */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFile = (e) =>
-    setFormData((prev) => ({ ...prev, profilePic: e.target.files[0] }));
+  /* ================= PROFILE IMAGE (2MB CHECK) ================= */
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  // ✅ NORMAL + GOOGLE SIGNUP SUBMIT
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+    if (file.size > MAX_SIZE) {
+      showPopup("error", "Profile image must be less than 2 MB");
+      e.target.value = ""; // reset input
+      setFormData((prev) => ({ ...prev, profilePic: null }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, profilePic: file }));
+  };
+
+  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -100,9 +116,8 @@ const Signup = () => {
         data
       );
 
-      showPopup("success", "Signup Successful ✅");
-      setTimeout(() => window.location.href = "/login", 1500);
-
+      showPopup("success", "Signup Successful 🎉");
+      setTimeout(() => (window.location.href = "/login"), 1500);
     } catch (err) {
       console.error(err);
       showPopup("error", err.response?.data?.msg || "Signup Failed!");
@@ -111,7 +126,7 @@ const Signup = () => {
     }
   };
 
-  // ✅ GOOGLE DETECTOR
+  /* ================= GOOGLE SIGNUP ================= */
   const handleGoogleSignup = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
 
@@ -122,15 +137,17 @@ const Signup = () => {
       userName: decoded.name,
       email: decoded.email,
       password: decoded.sub,
-      profilePic: decoded.picture
+      profilePic: decoded.picture, // URL string (safe)
     }));
 
-    showPopup("success", "Google detected ✅ Fill Address & City to continue");
+    showPopup(
+      "success",
+      "Google detected ✅ Fill Address & City to continue"
+    );
   };
 
   return (
     <div className="signup-container">
-
       <form onSubmit={handleSubmit} className="signup-box">
         <h2 className="signup-title">Create Account</h2>
 
@@ -185,16 +202,11 @@ const Signup = () => {
           {loading ? "Please wait..." : "Signup"}
         </button>
 
-        {/* ✅ LOGIN REDIRECT LINE */}
         <p className="auth-footer">
-          Already have an account?{" "}
-          <a href="/login">Login</a>
+          Already have an account? <a href="/login">Login</a>
         </p>
-
-
       </form>
 
-      {/* ✅ GOOGLE SIGNUP */}
       {!googleData && (
         <div className="google-wrapper">
           <p>Or</p>
@@ -203,14 +215,17 @@ const Signup = () => {
               theme="filled_blue"
               size="large"
               onSuccess={handleGoogleSignup}
-              onError={() => showPopup("error", "Google Signup Failed")}
+              onError={() =>
+                showPopup("error", "Google Signup Failed")
+              }
             />
           </div>
         </div>
       )}
 
-      {popup.show && <Notification type={popup.type} message={popup.message} />}
-
+      {popup.show && (
+        <Notification type={popup.type} message={popup.message} />
+      )}
     </div>
   );
 };

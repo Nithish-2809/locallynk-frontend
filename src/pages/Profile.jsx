@@ -13,13 +13,15 @@ function Profile() {
   const DEFAULT_AVATAR =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
+  /* ================= POPUP ================= */
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
+
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
     setTimeout(() => setPopup({ show: false, type: "", message: "" }), 2500);
   };
 
-  // FORM STATE
+  /* ================= FORM STATE ================= */
   const [form, setForm] = useState({
     userName: "",
     email: "",
@@ -32,57 +34,63 @@ function Profile() {
 
   const [editMode, setEditMode] = useState(false);
   const [profilePicFile, setProfilePicFile] = useState(null);
-  const [saving, setSaving] = useState(false); // ✅ NEW STATE
+  const [saving, setSaving] = useState(false);
 
-  // LOAD USER DATA
+  /* ================= LOAD USER ================= */
   useEffect(() => {
-    if (storedUser) {
-      setForm({
-        userName: storedUser.userName || "",
-        email: storedUser.email || "",
-        address: storedUser.location?.address || "",
-        city: storedUser.location?.city || "",
-        profilePic: storedUser.profilePic || DEFAULT_AVATAR,
-        latitude: storedUser.location?.coordinates?.[1] || "",
-        longitude: storedUser.location?.coordinates?.[0] || "",
-      });
-    }
+    if (!storedUser) return;
+
+    setForm({
+      userName: storedUser.userName || "",
+      email: storedUser.email || "",
+      address: storedUser.location?.address || "",
+      city: storedUser.location?.city || "",
+      profilePic: storedUser.profilePic || DEFAULT_AVATAR,
+      latitude: storedUser.location?.coordinates?.[1] || "",
+      longitude: storedUser.location?.coordinates?.[0] || "",
+    });
   }, []);
 
-  // INPUT CHANGE HANDLER
+  /* ================= INPUT HANDLER ================= */
   const handleChange = (e) => {
-    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // PROFILE PIC CHANGE
+  /* ================= IMAGE VALIDATION ================= */
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setProfilePicFile(file);
+    if (!file) return;
 
-    if (file) {
-      setForm((prev) => ({
-        ...prev,
-        profilePic: URL.createObjectURL(file),
-      }));
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+    if (file.size > MAX_SIZE) {
+      showPopup("error", "Image size must be less than 2 MB");
+      e.target.value = ""; // reset input
+      return;
     }
+
+    setProfilePicFile(file);
+    setForm((prev) => ({
+      ...prev,
+      profilePic: URL.createObjectURL(file),
+    }));
   };
 
-  // REMOVE PICTURE
+  /* ================= REMOVE IMAGE ================= */
   const removeProfilePic = () => {
     setProfilePicFile(null);
-    setForm((p) => ({ ...p, profilePic: DEFAULT_AVATAR }));
+    setForm((prev) => ({ ...prev, profilePic: DEFAULT_AVATAR }));
     showPopup("success", "Profile picture removed");
   };
 
-  // SAVE PROFILE (UPDATED WITH DISABLE STATE)
+  /* ================= SAVE PROFILE ================= */
   const saveProfile = async () => {
-    if (saving) return; // prevent spam clicks
+    if (saving) return;
 
     try {
-      setSaving(true); // disable button
+      setSaving(true);
 
       const data = new FormData();
-
       data.append("userName", form.userName);
       data.append("email", form.email);
       data.append("address", form.address);
@@ -116,8 +124,6 @@ function Profile() {
         JSON.stringify({ ...updatedUser, id: updatedUser._id })
       );
 
-      showPopup("success", "Profile updated successfully!");
-
       setForm({
         userName: updatedUser.userName,
         email: updatedUser.email,
@@ -128,12 +134,13 @@ function Profile() {
         longitude: updatedUser.location.coordinates[0],
       });
 
+      showPopup("success", "Profile updated successfully!");
       setEditMode(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       showPopup("error", "Failed to update profile");
     } finally {
-      setSaving(false); // enable button again
+      setSaving(false);
     }
   };
 
@@ -141,7 +148,7 @@ function Profile() {
     <div className="profile-page">
       <div className="profile-inner">
 
-        {/* LEFT SIDE CARD */}
+        {/* ================= LEFT CARD ================= */}
         <div className="profile-card">
           <h2 className="profile-title">My Profile</h2>
 
@@ -150,7 +157,7 @@ function Profile() {
 
             {editMode && (
               <div className="pic-controls">
-                <input type="file" onChange={handleFileChange} />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
                 <button className="remove-pic-btn" onClick={removeProfilePic}>
                   Remove Picture
                 </button>
@@ -208,7 +215,7 @@ function Profile() {
           )}
         </div>
 
-        {/* RIGHT SIDE QUICK ACTIONS */}
+        {/* ================= RIGHT SIDE ================= */}
         <div className="profile-side">
           <div className="side-card">
             <button
@@ -224,13 +231,13 @@ function Profile() {
             >
               My Orders
             </button>
-
           </div>
         </div>
-
       </div>
 
-      {popup.show && <Notification type={popup.type} message={popup.message} />}
+      {popup.show && (
+        <Notification type={popup.type} message={popup.message} />
+      )}
     </div>
   );
 }

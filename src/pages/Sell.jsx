@@ -22,13 +22,13 @@ function Sell() {
   const [uploading, setUploading] = useState(false);
   const [popup, setPopup] = useState(null);
 
-  /* ------------------ Notification ------------------ */
+  /* ================= POPUP ================= */
   const showPopup = (type, message) => {
     setPopup({ type, message });
     setTimeout(() => setPopup(null), 2500);
   };
 
-  /* ------------------ Auto Location ------------------ */
+  /* ================= GEO LOCATION ================= */
   useEffect(() => {
     if (!navigator.geolocation) return;
 
@@ -44,21 +44,32 @@ function Sell() {
     );
   }, []);
 
-  /* ------------------ Input Handlers ------------------ */
+  /* ================= INPUT HANDLERS ================= */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  /* ================= IMAGE HANDLER (2MB CHECK) ================= */
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+    if (file.size > MAX_SIZE) {
+      showPopup("error", "Image size must be less than 2 MB");
+      e.target.value = ""; // reset file input
+      setPreview(null);
+      setForm((prev) => ({ ...prev, image: null }));
+      return;
+    }
 
     setForm((prev) => ({ ...prev, image: file }));
     setPreview(URL.createObjectURL(file));
   };
 
-  /* ------------------ Validation ------------------ */
+  /* ================= FORM VALIDATION ================= */
   const isFormValid = () => {
     const required = [
       "productName",
@@ -76,7 +87,7 @@ function Sell() {
     return required.every((key) => Boolean(form[key]));
   };
 
-  /* ------------------ Submit ------------------ */
+  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (uploading) return;
@@ -90,6 +101,7 @@ function Sell() {
       setUploading(true);
 
       const data = new FormData();
+
       Object.entries(form).forEach(([key, value]) => {
         if (key !== "latitude" && key !== "longitude") {
           data.append(key, value);
@@ -117,9 +129,13 @@ function Sell() {
       );
 
       showPopup("success", "Product listed successfully 🎉");
-      setForm({ ...initialForm, latitude: form.latitude, longitude: form.longitude });
-      setPreview(null);
 
+      setForm({
+        ...initialForm,
+        latitude: form.latitude,
+        longitude: form.longitude,
+      });
+      setPreview(null);
     } catch (err) {
       console.error(err);
       showPopup("error", "Failed to upload product");
@@ -133,19 +149,63 @@ function Sell() {
       <h2 className="sell-title">Sell Your Product</h2>
 
       <form className="sell-form" onSubmit={handleSubmit}>
-        <input name="productName" placeholder="Product name" value={form.productName} onChange={handleChange} />
-        <input name="price" type="number" placeholder="Price" value={form.price} onChange={handleChange} />
-        <input name="age" placeholder="Product age" value={form.age} onChange={handleChange} />
-        <textarea name="description" placeholder="Describe your product" value={form.description} onChange={handleChange} />
-        <input name="category" placeholder="Category" value={form.category} onChange={handleChange} />
-        <input name="city" placeholder="City" value={form.city} onChange={handleChange} />
-        <input name="address" placeholder="Address" value={form.address} onChange={handleChange} />
+        <input
+          name="productName"
+          placeholder="Product name"
+          value={form.productName}
+          onChange={handleChange}
+        />
 
-        {/* Image Upload */}
+        <input
+          name="price"
+          type="number"
+          placeholder="Price"
+          value={form.price}
+          onChange={handleChange}
+        />
+
+        <input
+          name="age"
+          placeholder="Product age"
+          value={form.age}
+          onChange={handleChange}
+        />
+
+        <textarea
+          name="description"
+          placeholder="Describe your product"
+          value={form.description}
+          onChange={handleChange}
+        />
+
+        <input
+          name="category"
+          placeholder="Category"
+          value={form.category}
+          onChange={handleChange}
+        />
+
+        <input
+          name="city"
+          placeholder="City"
+          value={form.city}
+          onChange={handleChange}
+        />
+
+        <input
+          name="address"
+          placeholder="Address"
+          value={form.address}
+          onChange={handleChange}
+        />
+
+        {/* ================= IMAGE UPLOAD ================= */}
         <div className="image-upload-box">
           <label>Product Image</label>
           <input type="file" accept="image/*" onChange={handleImage} />
-          {preview && <img src={preview} alt="Preview" className="preview-img" />}
+          {preview && (
+            <img src={preview} alt="Preview" className="preview-img" />
+          )}
         </div>
 
         <button className="sell-btn" disabled={uploading}>

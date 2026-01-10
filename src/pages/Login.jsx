@@ -45,7 +45,7 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      showPopup("success", "Login successful ✅");
+      showPopup("success", "Login successful");
 
       setTimeout(() => window.location.href = "/home", 1500);
 
@@ -72,7 +72,7 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      showPopup("success", "Google Login successful ✅");
+      showPopup("success", "Google Login successful");
 
       setTimeout(() => window.location.href = "/home", 1500);
 
