@@ -202,7 +202,6 @@ const Signup = () => {
             <GoogleLogin
               theme="filled_blue"
               size="large"
-              marginLeft="100px"
               onSuccess={handleGoogleSignup}
               onError={() => showPopup("error", "Google Signup Failed")}
             />

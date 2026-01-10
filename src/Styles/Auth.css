@@ -200,3 +200,17 @@
     padding: 14px;
   }
 }
+/* ================= GOOGLE BUTTON ================= */
+.google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* wrapper around iframe created by Google */
+.google-btn > div {
+  width: 50% !important;
+  display: flex;
+  justify-content: center;
+}
